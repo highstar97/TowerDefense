@@ -49,6 +49,12 @@ public class PlayerMoveComponent : MonoBehaviour
         direction.y = yVelocity;
 
         controller.Move(direction * speed * Time.deltaTime);
+
+
+        //카메라 앞쪽에서 케릭터가 총을 드는 모션 및 수류탄을 던지는 모션을 작성
+        Vector3 cameraForward = Camera.main.transform.forward;
+        cameraForward.y = 0; //좌우회전시 카메라를 따라가게 만들었지만 상하회전시는 안되게 막음
+        transform.forward = cameraForward.normalized;
     }
     #endregion
 }
