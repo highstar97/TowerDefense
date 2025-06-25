@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private int currentHp;                      // current hp
 
+    public int currentCoin;
+
+    public int maxCoint = 100;
+
     [SerializeField]
     private float durationOfIdleState = 2f;     // duration of idle state
 
@@ -32,6 +36,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private float attackSpeed = 0.5f;           // speed of attack
 
     private float elapsedTime = 0f;             // elapsed time
+
+
 
     [SerializeField]
     private GameObject explosionEffectPrefab;   // Explosion Effect Prefab
@@ -48,8 +54,10 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private Material material;                  // Varialbe of Mesh Renderer Component
 
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
+    
+   
+    
     #endregion
-
     #region Unity Functions
     void Start()
     {
@@ -173,6 +181,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         explosionEffect.GetComponent<ParticleSystem>().Play();
         explosionEffect.GetComponent<AudioSource>().Play();
 
+        CoinManager.Instance.AddCoin(10);
+        
         Destroy(this.gameObject);
     }
     #endregion
