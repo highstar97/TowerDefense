@@ -1,5 +1,6 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedAttackComponent : MonoBehaviour
@@ -12,6 +13,8 @@ public class RangedAttackComponent : MonoBehaviour
     [SerializeField]
     private GameObject bulletEffectPrefabs;
 
+    private BulletEffect bulletEffectInstance;
+
     [SerializeField]
     private GameObject crosshairPrefabs;
 
@@ -23,14 +26,14 @@ public class RangedAttackComponent : MonoBehaviour
     {
         crosshairInstance = Instantiate(crosshairPrefabs);
     }
-   
+
     private void Update()
     {
         ARAVRInput.DrawCrosshair(crosshairInstance.transform);
 
         if (ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.RTouch))
         {
-            ARAVRInput.PlayVibration(ARAVRInput.Controller.RTouch); // ��Ʈ�ѷ� ����
+            ARAVRInput.PlayVibration(ARAVRInput.Controller.RTouch); // 컨트롤러 진동
 
             Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
 
@@ -47,13 +50,17 @@ public class RangedAttackComponent : MonoBehaviour
                     }
                 }
 
-                GameObject bulletEffect = Instantiate(bulletEffectPrefabs);
-                bulletEffect.GetComponent<ParticleSystem>().Play();
-                bulletEffect.GetComponent<AudioSource>().Play();
-                bulletEffect.transform.forward = hitResult.normal;
-                bulletEffect.transform.position = hitResult.point;
+                // BulletEffect 프리팹 생성
+                bulletEffectInstance = Instantiate(bulletEffectPrefabs).GetComponent<BulletEffect>();
+                bulletEffectInstance.transform.forward = hitResult.normal;
+                bulletEffectInstance.transform.position = hitResult.point;
+                
+                // BulletEffect 내장된 파티클, 오디오 실행
+                bulletEffectInstance.Play();
+                // 파티클, 오디오 모두 실행 시 자동 삭제 될 수 있도록 코루틴 실행
+                bulletEffectInstance.StartCoroutine(bulletEffectInstance.DestroyAfterPlay());
             }
         }
+        #endregion
     }
-    #endregion
 }
