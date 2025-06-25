@@ -11,11 +11,6 @@ public class RangedAttackComponent : MonoBehaviour
     public LayerMask targetLayerMasks;              // Target Layer Masks;
 
     [SerializeField]
-    private GameObject bulletEffectPrefabs;
-
-    private BulletEffect bulletEffectInstance;
-
-    [SerializeField]
     private GameObject crosshairPrefabs;
 
     private GameObject crosshairInstance;
@@ -50,15 +45,8 @@ public class RangedAttackComponent : MonoBehaviour
                     }
                 }
 
-                // BulletEffect 프리팹 생성
-                bulletEffectInstance = Instantiate(bulletEffectPrefabs).GetComponent<BulletEffect>();
-                bulletEffectInstance.transform.forward = hitResult.normal;
-                bulletEffectInstance.transform.position = hitResult.point;
-                
-                // BulletEffect 내장된 파티클, 오디오 실행
-                bulletEffectInstance.Play();
-                // 파티클, 오디오 모두 실행 시 자동 삭제 될 수 있도록 코루틴 실행
-                bulletEffectInstance.StartCoroutine(bulletEffectInstance.DestroyAfterPlay());
+                // BulletEffect Spawner에서 생성
+                BulletEffectSpawner.Instance.SpawnBulletEffect(hitResult.point, hitResult.normal);
             }
         }
         #endregion

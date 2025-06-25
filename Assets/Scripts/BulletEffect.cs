@@ -28,22 +28,20 @@ public class BulletEffect : MonoBehaviour
         }
 
         if (audioSource != null)
-        { 
-            audioSource.Play(); 
-        }       
-        
+        {
+            audioSource.Play();
+        }
     }
 
-    public IEnumerator DestroyAfterPlay()
+    public IEnumerator ReleaseAfterPlay()
     {
         // 파티클과 오디오 둘 중 하나라도 플레이되고 있으면 대기
         while(particle.isPlaying || audioSource.isPlaying)
         {
             yield return new WaitForSeconds(0.1f);
         }
-        // 파티클, 오디오 모두 플레이 완료 시 오브젝트 삭제
-        // TODO : 오브젝트 풀 이용하여서 더욱 최적화 가능할 듯
-        Destroy(this.gameObject);
+        // 오브젝트 풀에 다시 반환
+        BulletEffectSpawner.Instance.Release(this);
     }
     #endregion
 }
