@@ -10248,9 +10248,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8105662136874080674, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
+      propertyPath: attackRange
+      value: 8.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105662136874080674, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
+      propertyPath: targetLayerMasks.m_Bits
+      value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 8105662136874080674, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
+      propertyPath: allianceLayerMasks.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 8208475853563155804, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.19250757
+      value: 1.24
       objectReference: {fileID: 0}
     - target: {fileID: 8208475853563155804, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10258,7 +10270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8208475853563155804, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.548546
+      value: -7.45
       objectReference: {fileID: 0}
     - target: {fileID: 8208475853563155804, guid: 7aacd49e230df9c4db6a07be1b22838f, type: 3}
       propertyPath: m_LocalRotation.w

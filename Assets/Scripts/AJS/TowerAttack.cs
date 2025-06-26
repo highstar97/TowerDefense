@@ -27,22 +27,21 @@ public class TowerAttack : MonoBehaviour
     [SerializeField]
     private float attackSpeed = 2f;                  // 공격 속도
 
-    [SerializeField]
-    private Transform hitPos;                        // 공격 발사 지점
+    public Transform hitPos;                        // 공격 발사 지점
 
     // === 공격 기능 변수 ===
     [Header("Target")]
-    [SerializeField]
     public LayerMask targetLayerMasks;               // Enemy LayerMask
 
-    private Enemy targetEnemy;                        // 현재 공격 중인 적
+    public LayerMask allianceLayerMasks;             // alliance Layer Masks;
 
-    [SerializeField] // Hack: SerializeField 디버그용, 제거 예정
-    private List<Enemy> targetLists = new List<Enemy>();       // 현재 범위 안에 있는 적 리스트
+    private Enemy targetEnemy;                       // 현재 공격 중인 적
 
-    private bool isAttacking = false;                   // 공격 중인지 여부
+    private List<Enemy> targetLists = new List<Enemy>();  // 현재 범위 안에 있는 적 리스트
 
-    private EffectSpawner effectSpawner;                // Bullet Effect Spawner
+    private bool isAttacking = false;                // 공격 중인지 여부
+
+    private EffectSpawner effectSpawner;             // Bullet Effect Spawner
 
     #endregion
 
@@ -61,6 +60,10 @@ public class TowerAttack : MonoBehaviour
         if (targetLayerMasks.value == 0) // TargerLayer가 nothing이면
         {
             targetLayerMasks = LayerMask.GetMask("Enemy"); // Enemy Layer로 설정
+        }
+        if (allianceLayerMasks.value == 0) // allianceLayerMasks가  nothing이면
+        {
+            allianceLayerMasks = LayerMask.GetMask("Player"); //Player Layer로 설정
         }
         if (hitPos == null)
         {
@@ -157,14 +160,23 @@ public class TowerAttack : MonoBehaviour
         // Hack: null로 타켓의 죽음을 인식해서 딜레이가 있음/ 이벤트로 인식하는 방식으로 수정 가능
         while (targetEnemy != null)
         {
-            RotateToTarget(); // 타켓 바라보기
+            RotateToTarget(); // 타켓 바라보기      
 
-            // 이펙트 생성 위치
+            // hitPos과 타켓의 사이의 방향
             Vector3 directionToTarget = targetEnemy.transform.position - hitPos.position;
             directionToTarget.y = 0;
 
             // hitPos에서  이펙트 생성
             effectSpawner.SpawnEffect(hitPos.position, directionToTarget);
+
+            // hitPos에서 Ray 발사 후, Enemy 맞으면
+            Ray ray = new Ray(hitPos.position, directionToTarget);
+            RaycastHit hitResult;
+            if (Physics.Raycast(ray, out hitResult, 200, ~allianceLayerMasks))
+            {
+                // Effect Spawner에서 생성
+                effectSpawner.SpawnEffect(hitResult.point, hitResult.normal);
+            }
 
             // 공격력 만큼 데미지 주기
             targetEnemy.TakeDamage(attackDamage);
