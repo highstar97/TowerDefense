@@ -37,11 +37,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private float elapsedTime = 0f;             // elapsed time
 
-
-
-    [SerializeField]
-    private GameObject explosionEffectPrefab;   // Explosion Effect Prefab
-
     [SerializeField]
     private GameObject healthPointPrefab;       // Health Point Prefab
 
@@ -55,14 +50,21 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
 
+    private LineRenderer lineRenderer;          // Line Renderer
+
     private EffectSpawner effectSpawner;        // Bomb Effect Spawner
     #endregion
 
     #region Unity Functions
     private void Awake()
     {
+        lineRenderer = GetComponent<LineRenderer>();    // Line Renderer 찾기
+        lineRenderer.positionCount = 2;                 // 사용할 점을 2개로 변경
+        lineRenderer.enabled = false;                   // line Renderer 비활성화
+
         effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
     }
+
     private void Start()
     {
         currentHp = maxHp;
@@ -96,7 +98,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
                 Attack();
                 break;
             case EnemyState.Damage:
-                // Damage
                 break;
             case EnemyState.Die:
                 Die();
@@ -115,7 +116,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         currentHp -= availableDamage;
         for (int i = 0; i < availableDamage; ++i)
         {
-            Destroy(healthPoints[i]);
+            Destroy(healthPoints[0]);
             healthPoints.RemoveAt(0);
         }
 
@@ -160,6 +161,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
         if (elapsedTime > attackDelayTime)
         {
+            StartCoroutine(DrawLineEffect(this.transform.position, targetTransform.position, 0.03f));
             Player.Instance.TakeDamage(1);
             elapsedTime = 0.0f;
         }
@@ -185,6 +187,17 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         CoinManager.Instance.AddCoin(20);
         
         Destroy(this.gameObject);
+    }
+    private IEnumerator DrawLineEffect(Vector3 startPosition, Vector3 endPosition, float time)
+    {
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, endPosition);
+
+        lineRenderer.enabled = true;        // 라인 렌더러를 활성화하여 탄알 궤적을 그림
+
+        yield return new WaitForSeconds(time);
+
+        lineRenderer.enabled = false;       // 라인 렌더러를 비활성화하여 탄알 궤적을 지움
     }
     #endregion
 }
