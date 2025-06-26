@@ -54,12 +54,16 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private Material material;                  // Varialbe of Mesh Renderer Component
 
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
-    
-   
-    
+
+    private EffectSpawner effectSpawner;        // Bomb Effect Spawner
     #endregion
+
     #region Unity Functions
-    void Start()
+    private void Awake()
+    {
+        effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
+    }
+    private void Start()
     {
         currentHp = maxHp;
 
@@ -176,10 +180,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private void Die()
     {
-        GameObject explosionEffect = Instantiate(explosionEffectPrefab);
-        explosionEffect.transform.position = this.transform.position;
-        explosionEffect.GetComponent<ParticleSystem>().Play();
-        explosionEffect.GetComponent<AudioSource>().Play();
+        effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
 
         CoinManager.Instance.AddCoin(20);
         
