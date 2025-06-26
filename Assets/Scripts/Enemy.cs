@@ -54,8 +54,9 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private Material material;                  // Varialbe of Mesh Renderer Component
 
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
-    
-   
+
+    [SerializeField]
+    private GameObject coinPrefab; // 코인 프리팹
     
     #endregion
     #region Unity Functions
@@ -181,8 +182,13 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         explosionEffect.GetComponent<ParticleSystem>().Play();
         explosionEffect.GetComponent<AudioSource>().Play();
 
-        CoinManager.Instance.AddCoin(20);
-        
+       
+        Vector3 coinSpawnPos = transform.position + Vector3.up * 0.5f;
+        Quaternion rotation = Quaternion.Euler(90f, 0f, 0f); //코인 세워서 
+      
+        Instantiate(coinPrefab, coinSpawnPos, rotation);
+      
+
         Destroy(this.gameObject);
     }
     #endregion

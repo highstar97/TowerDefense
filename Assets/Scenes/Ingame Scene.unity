@@ -6379,6 +6379,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55abb49072ff8d049872c9de874b07f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTransform: {fileID: 0}
   maxCoin: 100
   addTowerImage: {fileID: 539747381}
   canvasUI: {fileID: 78571107}
@@ -7791,7 +7792,7 @@ GameObject:
   - component: {fileID: 1661156611}
   m_Layer: 10
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

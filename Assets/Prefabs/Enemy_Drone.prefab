@@ -94,12 +94,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 3
+  currentCoin: 0
+  maxCoint: 100
   durationOfIdleState: 2
   moveSpeed: 1
   attackRange: 1
   attackSpeed: 0.5
   explosionEffectPrefab: {fileID: 4811243155675180014, guid: 140158bb1a1f8b545ade9713eda6ffe0, type: 3}
   healthPointPrefab: {fileID: 1765833481965015528, guid: bcdc445eab564ac47b97b31c7b98b116, type: 3}
+  coinPrefab: {fileID: 8946533331580860441, guid: 7ee5c52ca1aaa794792bcc3848cd9610, type: 3}
 --- !u!1 &7653219234967639449
 GameObject:
   m_ObjectHideFlags: 0
