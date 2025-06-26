@@ -9,33 +9,35 @@ using UnityEngine;
 public class TowerAttack : MonoBehaviour
 {
     #region Variables
-    // === 체력 스탯 변수 ===
-    [Header("Health")]
-    [SerializeField]
-    private int maxHp = 3;
 
-    private int currentHp;
+    public bool gizmosActive = true; // Hack : 기즈모 활성화 여부, 제거 가능
 
     // === 공격 스탯 변수 ===
+
     [Header("Attack")]
     [SerializeField]
     private int attackDamage = 1;                    // 공격력
 
     [SerializeField]
-    private float attackRange = 3f;                  // 공격 범위
+    private float attackRange = 5f;                  // 공격 범위
 
     [SerializeField]
-    private float attackSpeed = 2f;                  // 공격 속도
+    private float attackSpeed = 1f;                  // 공격 속도
 
     public Transform hitPos;                        // 공격 발사 지점
 
     // === 공격 기능 변수 ===
+
     [Header("Target")]
     public LayerMask targetLayerMasks;               // Enemy LayerMask
 
     public LayerMask allianceLayerMasks;             // alliance Layer Masks;
 
     private Enemy targetEnemy;                       // 현재 공격 중인 적
+    public Enemy TargetEnemy
+    {
+        get { return targetEnemy; }
+    }
 
     private List<Enemy> targetLists = new List<Enemy>();  // 현재 범위 안에 있는 적 리스트
 
@@ -43,17 +45,13 @@ public class TowerAttack : MonoBehaviour
 
     private EffectSpawner effectSpawner;             // Bullet Effect Spawner
 
+    private Animator animator;
+
     #endregion
 
     #region Unity Functions;
 
-    // Hack: TriggerEnter 사용을 위한, EnemyPrefab에 RigidBody 추가
     // Hack: Enemy 공격 받으면 멈춰서 어색함
-
-    private void Reset()
-    {
-        SphereCollider sphereCollider = GetComponent<SphereCollider>();
-    }
 
     private void OnValidate()
     {
@@ -78,7 +76,7 @@ public class TowerAttack : MonoBehaviour
         SphereCollider sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = attackRange; // 공격 범위 동기화
 
-        currentHp = maxHp; // 체력 초기화
+        animator = GetComponent<Animator>(); // animator 컴포넌트 참조
     }
 
     private void OnTriggerEnter(Collider other)
@@ -135,6 +133,8 @@ public class TowerAttack : MonoBehaviour
     }
     private void OnDrawGizmos()
     {
+        if (!gizmosActive) return; // 기즈모 활성화 여부
+
         // 공격 범위 기즈모로 시각화
         if (isAttacking)
         {
@@ -157,17 +157,17 @@ public class TowerAttack : MonoBehaviour
     {
         isAttacking = true; // 공격 상태 활성화    
 
-        // Hack: null로 타켓의 죽음을 인식해서 딜레이가 있음/ 이벤트로 인식하는 방식으로 수정 가능
+        // Hack: null로 타켓의 죽음을 인식해서 딜레이가 생길 수 있음/ 이벤트로 인식하는 방식으로 수정 가능
         while (targetEnemy != null)
         {
-            RotateToTarget(); // 타켓 바라보기      
-
             // hitPos과 타켓의 사이의 방향
             Vector3 directionToTarget = targetEnemy.transform.position - hitPos.position;
             directionToTarget.y = 0;
 
             // hitPos에서  이펙트 생성
             effectSpawner.SpawnEffect(hitPos.position, directionToTarget);
+
+            animator.SetTrigger("Fire");
 
             // hitPos에서 Ray 발사 후, Enemy 맞으면
             Ray ray = new Ray(hitPos.position, directionToTarget);
@@ -215,19 +215,6 @@ public class TowerAttack : MonoBehaviour
             targetEnemy = null;  
             isAttacking = false;
         }
-    }
-
-    private void RotateToTarget()
-    {
-        // 목표 적과의 방향 벡터 계산 (Y축은 무시)
-        Vector3 directionToTarget = targetEnemy.transform.position - transform.position;
-        directionToTarget.y = 0;
-
-        // 목표 방향으로 회전할 쿼터니언 계산
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-
-        // 현재 회전을 목표 회전으로 즉시 변경
-        transform.rotation = targetRotation;
     }
     #endregion
 
