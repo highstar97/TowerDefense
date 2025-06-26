@@ -48,6 +48,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private Material material;                  // Varialbe of Mesh Renderer Component
 
+    private Animator animator;                  // animator
+
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
 
     private LineRenderer lineRenderer;          // Line Renderer
@@ -58,6 +60,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     #region Unity Functions
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+
         lineRenderer = GetComponent<LineRenderer>();    // Line Renderer 찾기
         lineRenderer.positionCount = 2;                 // 사용할 점을 2개로 변경
         lineRenderer.enabled = false;                   // line Renderer 비활성화
@@ -153,7 +157,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
             navMeshAgent.enabled = false;
         }
     }
-    
+
     private void Attack()
     {
         elapsedTime += Time.deltaTime;
@@ -161,7 +165,9 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
         if (elapsedTime > attackDelayTime)
         {
-            StartCoroutine(DrawLineEffect(this.transform.position, targetTransform.position, 0.03f));
+            this.transform.LookAt(targetTransform);
+
+            animator.SetTrigger("Attack");
             Player.Instance.TakeDamage(1);
             elapsedTime = 0.0f;
         }
@@ -188,6 +194,12 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         
         Destroy(this.gameObject);
     }
+
+    public void ActiveLineEffect()
+    {
+        StartCoroutine(DrawLineEffect(this.transform.position, targetTransform.position, 0.1f));
+    }
+
     private IEnumerator DrawLineEffect(Vector3 startPosition, Vector3 endPosition, float time)
     {
         lineRenderer.SetPosition(0, startPosition);
