@@ -35,6 +35,12 @@ public class TowerAttack : MonoBehaviour
     // Hack: TriggerEnter 사용을 위한, EnemyPrefab에 RigidBody 추가
     // Hack: Enemy 공격 받으면 멈춰서 어색함
 
+    private void Reset()
+    {
+        SphereCollider sphereCollider = GetComponent<SphereCollider>();
+        sphereCollider.isTrigger = true;
+    }
+
     private void OnValidate()
     {
         if (targetLayerMasks.value == 0) // TargerLayer가 nothing이면
@@ -97,7 +103,7 @@ public class TowerAttack : MonoBehaviour
         else
         {
             // 아니면 초록색으로 표시
-            Gizmos.color = Color.green;
+            Gizmos.color = Color.blue;
         }
         
         Gizmos.DrawWireSphere(transform.position, attackRange);
