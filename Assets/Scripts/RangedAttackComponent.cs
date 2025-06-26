@@ -1,5 +1,6 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedAttackComponent : MonoBehaviour
@@ -10,27 +11,31 @@ public class RangedAttackComponent : MonoBehaviour
     public LayerMask targetLayerMasks;              // Target Layer Masks;
 
     [SerializeField]
-    private GameObject bulletEffectPrefabs;
-
-    [SerializeField]
     private GameObject crosshairPrefabs;
 
     private GameObject crosshairInstance;
+    
+    private EffectSpawner effectSpawner;            // Bullet Effect Spawner
     #endregion
 
     #region Unity Functions;
+    private void Awake()
+    {
+        effectSpawner = GameObject.Find("Bullet Effect Spawner").GetComponent<EffectSpawner>();
+    }
+
     private void Start()
     {
         crosshairInstance = Instantiate(crosshairPrefabs);
     }
-   
+
     private void Update()
     {
         ARAVRInput.DrawCrosshair(crosshairInstance.transform);
 
         if (ARAVRInput.GetDown(ARAVRInput.Button.IndexTrigger, ARAVRInput.Controller.RTouch))
         {
-            ARAVRInput.PlayVibration(ARAVRInput.Controller.RTouch); // ƒ¡∆Æ∑—∑Ø ¡¯µø
+            ARAVRInput.PlayVibration(ARAVRInput.Controller.RTouch); // Ïª®Ìä∏Î°§Îü¨ ÏßÑÎèô
 
             Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
 
@@ -47,13 +52,10 @@ public class RangedAttackComponent : MonoBehaviour
                     }
                 }
 
-                GameObject bulletEffect = Instantiate(bulletEffectPrefabs);
-                bulletEffect.GetComponent<ParticleSystem>().Play();
-                bulletEffect.GetComponent<AudioSource>().Play();
-                bulletEffect.transform.forward = hitResult.normal;
-                bulletEffect.transform.position = hitResult.point;
+                // Effect SpawnerÏóêÏÑú ÏÉùÏÑ±
+                effectSpawner.SpawnEffect(hitResult.point, hitResult.normal);
             }
         }
+        #endregion
     }
-    #endregion
 }

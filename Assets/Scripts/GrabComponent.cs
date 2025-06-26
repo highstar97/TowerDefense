@@ -106,7 +106,7 @@ public class GrabComponent : MonoBehaviour
 
     IEnumerator GrabbingAnimator()
     {
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = true; // ¹°¸® ±â´É Á¤Áö
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = true; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         prevPosition = ARAVRInput.RHandPosition;
         prevRotation = ARAVRInput.RHand.rotation;
         Vector3 startLocation = grabbedObject.transform.position;

@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
             elapsedTime = 0.0f;
             SetNextSpawnTime();
 
-            GameObject enemy = Instantiate(enemyPrefab);
+            GameObject enemy = Instantiate(enemyPrefab, this.transform);
             enemy.transform.position = transformList[Random.Range(0, transformList.Count)].position;
         }
     }
