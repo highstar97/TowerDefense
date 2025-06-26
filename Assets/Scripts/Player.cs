@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, ITakeDamageable
     {
         if (Instance == null)
         {
-            Instance = this; //½Ì±ÛÅæ °´Ã¼ °ª ÇÒ´ç
+            Instance = this; //
         }
     }
 
@@ -62,6 +62,7 @@ public class Player : MonoBehaviour, ITakeDamageable
 
         if (currentHp <= 0)
         {
+
             Destroy(this.gameObject);
         }
     }
