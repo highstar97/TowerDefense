@@ -7,6 +7,8 @@ using UnityEngine;
 // 필요속성 : 현재각도, 마우스감도
 public class CamRotate : MonoBehaviour
 {
+    //public Transform target; //케릭터가 카메라를 따라감
+    //public Vector3 offset;
     // 현재각도
     Vector3 angle;
     // 마우스감도
@@ -32,7 +34,7 @@ public class CamRotate : MonoBehaviour
         // 이동 공식에 대입하여 각 속성별로 회전 값을 누적 시킨다.
         angle.x += x * sensitivity * Time.deltaTime;
         angle.y += y * sensitivity * Time.deltaTime;
-
+        angle.y = Mathf.Clamp(angle.y, -17f, 70f);
         angle.y = Mathf.Clamp(angle.y, -90, 90);
         // 3. 회전 시키고 싶다.
         // 카메라의 회전값에 새로 만들어진 회전 값을 할당한다.

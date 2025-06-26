@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private int currentHp;                      // current hp
 
+    public int currentCoin;
+
+    public int maxCoint = 100;
+
     [SerializeField]
     private float durationOfIdleState = 2f;     // duration of idle state
 
@@ -34,9 +38,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private float elapsedTime = 0f;             // elapsed time
 
     [SerializeField]
-    private GameObject explosionEffectPrefab;   // Explosion Effect Prefab
-
-    [SerializeField]
     private GameObject healthPointPrefab;       // Health Point Prefab
 
     private List<GameObject> healthPoints = new ();      // list of Health Points
@@ -47,11 +48,31 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private Material material;                  // Varialbe of Mesh Renderer Component
 
+    private Animator animator;                  // animator
+
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
+
+    [SerializeField]
+    private GameObject coinPrefab; // 코인 프리팹
+    
+    private LineRenderer lineRenderer;          // Line Renderer
+
+    private EffectSpawner effectSpawner;        // Bomb Effect Spawner
     #endregion
 
     #region Unity Functions
-    void Start()
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+
+        lineRenderer = GetComponent<LineRenderer>();    // Line Renderer 찾기
+        lineRenderer.positionCount = 2;                 // 사용할 점을 2개로 변경
+        lineRenderer.enabled = false;                   // line Renderer 비활성화
+
+        effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
+    }
+
+    private void Start()
     {
         currentHp = maxHp;
 
@@ -84,7 +105,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
                 Attack();
                 break;
             case EnemyState.Damage:
-                // Damage
                 break;
             case EnemyState.Die:
                 Die();
@@ -140,7 +160,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
             navMeshAgent.enabled = false;
         }
     }
-    
+
     private void Attack()
     {
         elapsedTime += Time.deltaTime;
@@ -148,6 +168,9 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
         if (elapsedTime > attackDelayTime)
         {
+            this.transform.LookAt(targetTransform);
+
+            animator.SetTrigger("Attack");
             Player.Instance.TakeDamage(1);
             elapsedTime = 0.0f;
         }
@@ -168,12 +191,33 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private void Die()
     {
-        GameObject explosionEffect = Instantiate(explosionEffectPrefab);
-        explosionEffect.transform.position = this.transform.position;
-        explosionEffect.GetComponent<ParticleSystem>().Play();
-        explosionEffect.GetComponent<AudioSource>().Play();
+        effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
+
+       
+        Vector3 coinSpawnPos = transform.position + Vector3.up * 0.5f;
+        Quaternion rotation = Quaternion.Euler(90f, 0f, 0f); //코인 세워서 
+      
+        Instantiate(coinPrefab, coinSpawnPos, rotation);
+      
 
         Destroy(this.gameObject);
+    }
+
+    public void ActiveLineEffect()
+    {
+        StartCoroutine(DrawLineEffect(this.transform.position, targetTransform.position, 0.1f));
+    }
+
+    private IEnumerator DrawLineEffect(Vector3 startPosition, Vector3 endPosition, float time)
+    {
+        lineRenderer.SetPosition(0, startPosition);
+        lineRenderer.SetPosition(1, endPosition);
+
+        lineRenderer.enabled = true;        // 라인 렌더러를 활성화하여 탄알 궤적을 그림
+
+        yield return new WaitForSeconds(time);
+
+        lineRenderer.enabled = false;       // 라인 렌더러를 비활성화하여 탄알 궤적을 지움
     }
     #endregion
 }
