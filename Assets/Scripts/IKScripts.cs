@@ -7,27 +7,31 @@ using UnityEngine;
 public class IKScripts : MonoBehaviour
 {
     Animator anim;
-    public Transform leftHand;
-    public Transform rightHand;
-
+    //public Transform leftHand; // 왼손의 위치
+    public Transform rightHand; // 오른손의 위치
+    public Transform gunPivot;//총의 위치
     private void OnAnimatorIK(int layerIndex)
     {
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
-        anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
+        
+        // gunPivot.position = anim.GetIKHintPosition(AvatarIKHint.RightElbow);
+       // print("레이어 인덱스: " + layerIndex);
+        //anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        //anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+        //anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
+        //anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
 
         anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
         anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
         anim.SetIKPosition(AvatarIKGoal.RightHand, rightHand.position);
         anim.SetIKRotation(AvatarIKGoal.RightHand, rightHand.rotation);
 
-
+        
     }
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+    
     }
 
     // Update is called once per frame

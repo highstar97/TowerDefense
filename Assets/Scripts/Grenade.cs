@@ -10,6 +10,7 @@ public class Grenade : MonoBehaviour
     public LayerMask enemy; //맞힐적 표기
     Animator anim; //수류탄 던지는 모션 설정
     //public GameObject grenade; //수류탄 가져오기
+    public GameObject gun;//수류탄을 던질때는 총 삭제
 
     // Start is called before the first frame update
     void Start()
@@ -22,14 +23,20 @@ public class Grenade : MonoBehaviour
     {
         ThrowGrenade();
     }
+    public void Showgun() //총의 이미지 다시 가져오기
+    {
+        gun.SetActive(true);
+    }
     public void ThrowGrenade()
     {
         //마우스 왼쪽버튼을 누르게 되면 수류탄 던지는 모션 발생
         //2초후 터지게 함.
         if(ARAVRInput.GetDown(ARAVRInput.Button.HandTrigger, ARAVRInput.Controller.RTouch))
         {
+            gun.SetActive(false);
             anim.SetTrigger("ThrowBomb");
             StartCoroutine(BombTimer(2f));
+            //gun.SetActive(true);
         }
     }
 
@@ -45,6 +52,5 @@ public class Grenade : MonoBehaviour
                 target.TakeDamage((int)bombPow);
             }
         }
-        //Destroy(gameObject);
     }
 }
