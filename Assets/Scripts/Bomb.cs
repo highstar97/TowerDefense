@@ -9,11 +9,16 @@ public class Bomb : MonoBehaviour
     public float range = 3;                     // Explosion Range
     public LayerMask targetLayerMasks;          // Target Layer Masks;
 
-    [SerializeField]
-    private GameObject explosionEffectPrefab;   // Explosion Effect Prefab
+    private bool isExploded;
+    private EffectSpawner effectSpawner;        // Bomb Effect Spawner
     #endregion
 
     #region Unity Functions
+    private void Awake()
+    {
+        effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Collider[] targets = Physics.OverlapSphere(this.transform.position, this.range, targetLayerMasks);
@@ -28,12 +33,13 @@ public class Bomb : MonoBehaviour
             }
         }
 
-        GameObject explosionEffect = Instantiate(explosionEffectPrefab);
-        explosionEffect.transform.position = this.transform.position;
-        explosionEffect.GetComponent<ParticleSystem>().Play();
-        explosionEffect.GetComponent<AudioSource>().Play();
-        
-        Destroy(this.gameObject);
+        // Collision은 두 물체끼리 부딪혔을 때 총 2번 발동(수박 게임과 같은 이슈) → isExploded 변수 추가
+        if(isExploded == false)
+        {
+            isExploded = true;
+            effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
+            Destroy(this.gameObject);
+        }        
     }
     #endregion
 }

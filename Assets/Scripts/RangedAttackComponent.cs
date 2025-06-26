@@ -14,9 +14,16 @@ public class RangedAttackComponent : MonoBehaviour
     private GameObject crosshairPrefabs;
 
     private GameObject crosshairInstance;
+    
+    private EffectSpawner effectSpawner;            // Bullet Effect Spawner
     #endregion
 
     #region Unity Functions;
+    private void Awake()
+    {
+        effectSpawner = GameObject.Find("Bullet Effect Spawner").GetComponent<EffectSpawner>();
+    }
+
     private void Start()
     {
         crosshairInstance = Instantiate(crosshairPrefabs);
@@ -45,8 +52,8 @@ public class RangedAttackComponent : MonoBehaviour
                     }
                 }
 
-                // BulletEffect Spawner에서 생성
-                BulletEffectSpawner.Instance.SpawnBulletEffect(hitResult.point, hitResult.normal);
+                // Effect Spawner에서 생성
+                effectSpawner.SpawnEffect(hitResult.point, hitResult.normal);
             }
         }
         #endregion
