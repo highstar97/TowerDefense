@@ -32,7 +32,7 @@ public class Player : MonoBehaviour, ITakeDamageable
     {
         if (Instance == null)
         {
-            Instance = this; //½Ì±ÛÅæ °´Ã¼ °ª ÇÒ´ç
+            Instance = this; //ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ ï¿½Ò´ï¿½
         }
     }
 

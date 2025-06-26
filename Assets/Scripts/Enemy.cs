@@ -103,7 +103,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         currentHp -= availableDamage;
         for (int i = 0; i < availableDamage; ++i)
         {
-            Destroy(healthPoints[i]);
+            Destroy(healthPoints[0]);
             healthPoints.RemoveAt(0);
         }
 
