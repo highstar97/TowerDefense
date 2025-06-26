@@ -181,7 +181,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         explosionEffect.GetComponent<ParticleSystem>().Play();
         explosionEffect.GetComponent<AudioSource>().Play();
 
-        CoinManager.Instance.AddCoin(10);
+        CoinManager.Instance.AddCoin(20);
         
         Destroy(this.gameObject);
     }
