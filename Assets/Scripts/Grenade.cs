@@ -49,16 +49,33 @@ public class Grenade : MonoBehaviour
     {
         SetuptargetLineRenderer();
 
-        Vector3 velocity = ARAVRInput.RHandDirection * bombThrowPow;
-        Vector3 startPos = throwPoint.transform.position;
+        //Ray를 이용하여 기준점 잡기
+        Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
+        RaycastHit hit;
 
-        targetLineRenderer.positionCount = linePointer;
-
-        for(int i= 0; i<linePointer; i++)
+        //Ray가 벽에 맞으면 그곳을 목표로 설정
+        if (Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Terrain")))
         {
-            targetLineRenderer.SetPosition(i, startPos);
-            velocity += Physics.gravity * (1f / 15f);
-            startPos += velocity * (1f / 15f);
+            Vector3 targetPoint = hit.point;
+
+            Vector3 direction = (targetPoint - throwPoint.position).normalized;
+            direction.y += 0.15f;
+            direction.Normalize();
+
+            Vector3 velocity = direction * bombThrowPow;
+
+            Vector3 currentPos = throwPoint.position;
+            targetLineRenderer.positionCount = linePointer;
+
+            for (int i = 0; i < linePointer; i++)
+            {
+                targetLineRenderer.SetPosition(i, currentPos);
+                velocity += Physics.gravity * (1f / 15f);
+                currentPos += velocity * (1f / 15f);
+            }
+
+        //Vector3 velocity = ARAVRInput.RHandDirection * bombThrowPow;
+        //Vector3 startPos = throwPoint.transform.position;
         }
     }
 
@@ -120,8 +137,22 @@ public class Grenade : MonoBehaviour
         Rigidbody grenadeRigidbody = grabGrenade.GetComponent<Rigidbody>();
         grenadeRigidbody.isKinematic = false;
 
-        Vector3 throwDirector = ARAVRInput.RHandDirection;
-        grenadeRigidbody.velocity = throwDirector * bombThrowPow;
+        //Ray를 이용하여 기준점 잡기
+        Ray ray = new Ray(ARAVRInput.RHandPosition, ARAVRInput.RHandDirection);
+        RaycastHit hit;
+
+        //Ray가 벽에 맞으면 그곳을 목표로 설정
+        if(Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Terrain")))
+        {
+            Vector3 targetPoint = hit.point;
+
+            Vector3 direction = (targetPoint - throwPoint.position).normalized;
+            //라인렌더러를 보정함.
+            direction.y = 0.15f;
+            direction.Normalize();
+            grenadeRigidbody.velocity = direction * bombThrowPow;
+        }
+
 
         //터지는 것에 대한 딜레이 적용
         StartCoroutine(ExplosionTime(grabGrenade.transform.position));
