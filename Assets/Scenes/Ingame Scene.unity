@@ -342,11 +342,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a67167eb5400241b1a416349329c81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 1
+  minSpawnTime: 2
   maxSpawnTime: 5
-  transformList:
+  spawnTransformList:
   - {fileID: 284842645}
-  enemyPrefab: {fileID: 2356676680789866017, guid: 7cfab6fd100f2f74bbd7d75a992b4d81, type: 3}
+  enemyPrefab: {fileID: 4670500216199066772, guid: 7cfab6fd100f2f74bbd7d75a992b4d81, type: 3}
 --- !u!4 &49909377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 416390, guid: c76d2d3504ddb4847940a815cad04644, type: 3}
@@ -8023,6 +8023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73921697fa54ef441a31dc5359b1ecde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireTransform: {fileID: 0}
   allianceLayerMasks:
     serializedVersion: 2
     m_Bits: 1024
