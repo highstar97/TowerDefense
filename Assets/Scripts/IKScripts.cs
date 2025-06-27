@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-//ì´ì„ ì•ˆì •ì ìœ¼ë¡œ ì¡ê²Œ í•˜ëŠ” scripts
+//ÃÑ°ú ¼ö·ùÅºÀ» ´õ ÀÚ¿¬½º·´°Ô Àâ±âÀ§ÇØ IKscripts ÀÛ¼º
 public class IKScripts : MonoBehaviour
 {
     Animator anim;
-    public Transform rightHand;
-    public Transform leftHand;
-    public Transform gunPivot;
+    //public Transform leftHand; // ¿Ş¼ÕÀÇ À§Ä¡
+    public Transform rightHand; // ¿À¸¥¼ÕÀÇ À§Ä¡
+    public Transform gunPivot;//ÃÑÀÇ À§Ä¡
     private void OnAnimatorIK(int layerIndex)
     {
+        
+        // gunPivot.position = anim.GetIKHintPosition(AvatarIKHint.RightElbow);
+       // print("·¹ÀÌ¾î ÀÎµ¦½º: " + layerIndex);
+        //anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+        //anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+        //anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
+        //anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
+
         anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
         anim.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
         anim.SetIKPosition(AvatarIKGoal.RightHand, rightHand.position);
         anim.SetIKRotation(AvatarIKGoal.RightHand, rightHand.rotation);
 
-        anim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-        anim.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
-        anim.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
-
+        
     }
     // Start is called before the first frame update
     void Start()

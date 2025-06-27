@@ -193,9 +193,12 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     {
         effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
 
-        Vector3 coinSpawnPosition = transform.position + Vector3.up * 0.5f;
-
-        Instantiate(coinPrefab, coinSpawnPosition, Quaternion.Euler(-90f,0f,0f));
+       
+        Vector3 coinSpawnPos = transform.position + Vector3.up * 0.5f;
+        Quaternion rotation = Quaternion.Euler(90f, 0f, 0f); //코인 세워서 
+      
+        Instantiate(coinPrefab, coinSpawnPos, rotation);
+      
 
         Destroy(this.gameObject);
     }

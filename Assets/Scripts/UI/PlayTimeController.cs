@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayTimeController : MonoBehaviour
 {
     [SerializeField]
-    public float countTime = 300f;
+    public float CountTime = 300f;
 
     [SerializeField]
     UnityEvent<float> m_changedPlayTimeEvent;
@@ -20,8 +20,10 @@ public class PlayTimeController : MonoBehaviour
 
     public void StartTime()
     {
+        Debug.Log("StartTime Called");
         timerCoroutine = StartCoroutine(CoTimer(300f)); //5분 타이머
     }
+
 
     public void StopTime()
     {
@@ -29,20 +31,24 @@ public class PlayTimeController : MonoBehaviour
         {
             StopCoroutine(timerCoroutine);
             timerCoroutine = null;
+
         }
     }
 
     IEnumerator CoTimer(float time)
     {
-        countTime = time;
+        float currentTime = time;
 
-        while (countTime > 0)
+        while (currentTime > 0)
         {
+
             yield return new WaitForSeconds(1f);
-            countTime -= 1f;
-            m_changedPlayTimeEvent.Invoke(countTime);
+            currentTime -= 1f;
+            m_changedPlayTimeEvent.Invoke(currentTime);
         }
-        countTime = 0f;
-        m_changedPlayTimeEvent.Invoke(countTime);
+        m_changedPlayTimeEvent.Invoke(0f);
+
     }
+  
+
 }
