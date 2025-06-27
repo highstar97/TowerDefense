@@ -62,7 +62,8 @@ public class Player : MonoBehaviour, ITakeDamageable
 
         if (currentHp <= 0)
         {
-
+            GameManager.Instance.isPlayerWin = false;
+            GameManager.Instance.GameOver();
             Destroy(this.gameObject);
         }
     }

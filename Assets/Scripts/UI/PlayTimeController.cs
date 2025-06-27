@@ -6,7 +6,8 @@ using UnityEngine.Events;
 public class PlayTimeController : MonoBehaviour
 {
     [SerializeField]
-    public float countTime = 300f;
+    public float initTime = 300f;
+    public float remainedTime = 0f;
 
     [SerializeField]
     UnityEvent<float> m_changedPlayTimeEvent;
@@ -15,12 +16,13 @@ public class PlayTimeController : MonoBehaviour
 
     void Start()
     {
+        remainedTime = initTime;
         StartTime();
     }
 
     public void StartTime()
     {
-        timerCoroutine = StartCoroutine(CoTimer(300f)); //5분 타이머
+        timerCoroutine = StartCoroutine(CoTimer()); // countTime 타이머
     }
 
     public void StopTime()
@@ -32,17 +34,19 @@ public class PlayTimeController : MonoBehaviour
         }
     }
 
-    IEnumerator CoTimer(float time)
+    IEnumerator CoTimer()
     {
-        countTime = time;
-
-        while (countTime > 0)
+        while (remainedTime > 0)
         {
             yield return new WaitForSeconds(1f);
-            countTime -= 1f;
-            m_changedPlayTimeEvent.Invoke(countTime);
+            remainedTime -= 1f;
+            m_changedPlayTimeEvent.Invoke(remainedTime);
         }
-        countTime = 0f;
-        m_changedPlayTimeEvent.Invoke(countTime);
+        remainedTime = 0f;
+        m_changedPlayTimeEvent.Invoke(remainedTime);
+
+        GameManager.Instance.isPlayerWin = true;
+        GameManager.Instance.GameOver();
+        StopTime();
     }
 }

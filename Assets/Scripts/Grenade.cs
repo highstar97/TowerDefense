@@ -16,8 +16,8 @@ public class Grenade : MonoBehaviour
 
 
     [Header("수류탄 정보")]
-    public float bombPow = 3f; //수류탄 공격력
-    public float bombRange = 5f; // 수류탄 범위
+    public int bombPower = 2; //수류탄 공격력
+    public float bombRange = 3f; // 수류탄 범위
     public LayerMask enemy; //수류탄 맞은 적
     public float explosionTime = 2f; //던지고 터지는 시간
 
@@ -27,11 +27,14 @@ public class Grenade : MonoBehaviour
     public GameObject ikScript; //수류탄 던질때 IKscript on/off
     public LineRenderer targetLineRenderer; //궤적 라인
     int linePointer = 40;// 궤적 포인트 갯수(많으면 더 좋음)
+    private EffectSpawner effectSpawner;
 
     private void Awake()
     {
         targetLineRenderer = GetComponent<LineRenderer>();
         targetLineRenderer.enabled = false;
+
+        effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
     }
 
     //라인렌더러 설정
@@ -173,21 +176,21 @@ public class Grenade : MonoBehaviour
         Collider[] Enemys = Physics.OverlapSphere(transform.position, bombRange, enemy);
         for(int i = 0; i<Enemys.Length; i++)
         {
-            float distance = Vector3.Distance(transform.position, Enemys[i].transform.position);
+            //float distance = Vector3.Distance(transform.position, Enemys[i].transform.position);
             //적 배열에서 하나씩 꺼내서 거리 측정함.
-            
-            float damageDistance = 1 - (distance / bombRange);
-            //거리 비교를 위한 식
-
-            int damagedEnemy = Mathf.RoundToInt(bombPow * damageDistance);
+   
+            //int damageAmount = Mathf.Min((int)(bombPower / distance), bombPower);
             //거리에 따른 계산식
             ITakeDamageable target = Enemys[i].GetComponent<ITakeDamageable>();
             if(target != null)
             {
-                target.TakeDamage(damagedEnemy);
+                target.TakeDamage(bombPower);
             }
         }
+        effectSpawner.SpawnEffect(grabGrenade.transform.position, grabGrenade.transform.rotation.eulerAngles);
+        Destroy(grabGrenade.gameObject);
     }
+
     public void Showgun() //총 gameobject on
     {
         gun.SetActive(true);

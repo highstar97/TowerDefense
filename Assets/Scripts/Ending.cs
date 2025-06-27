@@ -23,19 +23,12 @@ public class Ending : MonoBehaviour
         Application.Quit();
     }
 
-    public void Playtime()
-    {
-
-    }
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        CoinCount.text = "생존 시간 : " + GameObject.Find("CoinManager").GetComponent<CoinManager>().totalEarnedCoin.ToString();
+        PlayTimeController timeController = GameObject.Find("TimeController").GetComponent<PlayTimeController>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        playTime.text = "획득 코인 : " + (timeController.initTime - timeController.remainedTime).ToString();
     }
 }

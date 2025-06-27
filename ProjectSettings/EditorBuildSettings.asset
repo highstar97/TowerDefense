@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Ingame Scene.unity
     guid: 291ff1d8e11132b4fa3ecef004567fff
+  - enabled: 1
+    path: Assets/Scenes/EndingScene_Win.unity
+    guid: 36e6f9abcbe1cff4389d4fc68537ab97
+  - enabled: 1
+    path: Assets/Scenes/EndingScene_Lose.unity
+    guid: 55d6e7f815c853945bfa952db78ed655
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 47d136e18b1cff94f8e2413c4776d76b, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0b2087ae76f22fe45a0bc67d063420c6, type: 2}

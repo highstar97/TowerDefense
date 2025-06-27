@@ -5,7 +5,10 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance; //코인 싱글톤 객체생성
 
+    public int totalEarnedCoin = 0;
+
     private int currentCoin = 0;
+
     public int CurrentCoin { get { return currentCoin; } }
 
     [SerializeField]
@@ -35,6 +38,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoin(int amount)
     {
+        totalEarnedCoin += amount;
         currentCoin += amount;
         UpdateUI();
     }
