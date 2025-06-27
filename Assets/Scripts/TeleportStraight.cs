@@ -13,6 +13,7 @@ public class TeleportStraight : MonoBehaviour
     public PostProcessVolume post;
 
     public LayerMask floorLayerMask;  // Floor LayerMask
+    public LayerMask UILayerMask;  // UI LayerMask
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -49,7 +50,12 @@ public class TeleportStraight : MonoBehaviour
             RaycastHit hitResult;
             // floorLayerMask 변수로 Ray 설정으로 변경
             //int layer = 1 << LayerMask.NameToLayer("Terrain"); 
-            if (Physics.Raycast(ray, out hitResult, 200, floorLayerMask))
+            if (Physics.Raycast(ray, out hitResult, 200, UILayerMask))
+            {
+                Debug.Log("UI감지");
+                return;
+            }
+            else if (Physics.Raycast(ray, out hitResult, 200, floorLayerMask))
             {
                 lineRenderer.SetPosition(0, ray.origin);
                 lineRenderer.SetPosition(1, hitResult.point);

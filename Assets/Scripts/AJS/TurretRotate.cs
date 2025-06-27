@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(TowerAttack))]
-public class TowerRotate : MonoBehaviour
+[RequireComponent(typeof(TurretAttack))]
+public class TurretRotate : MonoBehaviour
 {
     #region Variables
 
-    private TowerAttack towerAttack; // TargetEnemy 값 가져오기
+    private TurretAttack towerAttack; // TargetEnemy 값 가져오기
 
     public float rotationSpeed = 5f; // 회전 속도
 
@@ -17,7 +17,7 @@ public class TowerRotate : MonoBehaviour
 
     private void Start()
     {
-        towerAttack = GetComponent<TowerAttack>();
+        towerAttack = GetComponent<TurretAttack>();
     }
 
     private void Update()

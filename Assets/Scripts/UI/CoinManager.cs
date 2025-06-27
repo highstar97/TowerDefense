@@ -5,13 +5,8 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance; //코인 싱글톤 객체생성
 
-
-    public Transform enemyTransform;
-
-    public int maxCoin = 100;
     private int currentCoin = 0;
-
-    public Image addTowerImage;
+    public int CurrentCoin { get { return currentCoin; } }
 
     [SerializeField]
     private CanvasUI canvasUI;  // CanvasUI 에 연결
@@ -19,31 +14,20 @@ public class CoinManager : MonoBehaviour
     [SerializeField]
     private GameObject towerPrefab; //타워 프리팹 
 
-    void Start()
-    {
-        if (addTowerImage != null)
-            addTowerImage.gameObject.SetActive(false);
-    }
-
-
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
+        {
             Destroy(gameObject);
-
-        
+        }
         UpdateUI();
     }
 
     public void AddCoin(int amount)
     {
-
         currentCoin += amount;
-        if (currentCoin > maxCoin)
-            currentCoin = maxCoin;
-
         UpdateUI();
     }
 
@@ -51,27 +35,19 @@ public class CoinManager : MonoBehaviour
     {
         if (canvasUI != null)
         {
-            canvasUI.OnCoin(maxCoin, currentCoin);
-          
-        }
-        if (addTowerImage != null)
-        {
-            addTowerImage.gameObject.SetActive(currentCoin >= maxCoin);
+            canvasUI.UpdateConiUI(currentCoin);
         }
     }
-    public void AddTower()
+
+    public void UseCoin(int amount)
     {
-        if (currentCoin >= maxCoin)
-        {
-            Vector3 spawnPosition = new Vector3(-22.69f, -0.13f, -1.46f);
-            GameObject tower = Instantiate(towerPrefab, spawnPosition, Quaternion.identity);
+        // 현재 코인 보유량보다 높은면 return
+        if (currentCoin < amount) return;
+        currentCoin -= amount;
 
-
-                currentCoin = 0;  // 코인 리셋
-                UpdateUI();       // UI 
-            }
-        }
-
+        UpdateUI();
     }
-    
+
+}
+
 

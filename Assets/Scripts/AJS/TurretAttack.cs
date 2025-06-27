@@ -6,7 +6,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(SphereCollider))]
-public class TowerAttack : MonoBehaviour
+public class TurretAttack : MonoBehaviour
 {
     #region Variables
 

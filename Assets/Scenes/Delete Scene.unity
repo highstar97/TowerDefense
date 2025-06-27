@@ -3010,7 +3010,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0/100
+  m_Text: 0
 --- !u!222 &462018211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6379,9 +6379,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55abb49072ff8d049872c9de874b07f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 0}
-  maxCoin: 100
-  addTowerImage: {fileID: 539747381}
   canvasUI: {fileID: 78571107}
   towerPrefab: {fileID: 1000012174300454, guid: 8a4fca54c9faa3449bcff12193992420, type: 3}
 --- !u!4 &1448689160
@@ -7832,7 +7829,10 @@ MonoBehaviour:
   post: {fileID: 1850071696}
   floorLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
+  UILayerMask:
+    serializedVersion: 2
+    m_Bits: 32
 --- !u!114 &1661156614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10829,6 +10829,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1001 &477346234573342395
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -22.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 9.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 732804686865974938, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2860618821447858500, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
+      propertyPath: m_Name
+      value: Turret with UI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d47a1fe2c6734e4d9586a909b269bf1, type: 3}
 --- !u!1001 &3852159231837274491
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11280,3 +11337,4 @@ SceneRoots:
   - {fileID: 319408722}
   - {fileID: 1399136070}
   - {fileID: 1448689160}
+  - {fileID: 477346234573342395}
