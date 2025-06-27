@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9136778559783057992}
   - component: {fileID: 2274455435447729194}
   - component: {fileID: 4670500216199066772}
+  - component: {fileID: 874963336111468450}
   m_Layer: 11
   m_Name: Enemy_Drone
   m_TagString: Untagged
@@ -232,6 +233,33 @@ MonoBehaviour:
   attackSpeed: 0.5
   healthPointPrefab: {fileID: 1765833481965015528, guid: bcdc445eab564ac47b97b31c7b98b116, type: 3}
   coinPrefab: {fileID: 8946533331580860441, guid: 7ee5c52ca1aaa794792bcc3848cd9610, type: 3}
+--- !u!54 &874963336111468450
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2356676680789866017}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &7653219234967639449
 GameObject:
   m_ObjectHideFlags: 0
