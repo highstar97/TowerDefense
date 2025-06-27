@@ -4740,6 +4740,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 447016539101406361, guid: d913a3980bd997d4c93dece68a759972, type: 3}
+      propertyPath: bombThrowPow
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1510030472461850799, guid: d913a3980bd997d4c93dece68a759972, type: 3}
       propertyPath: textHealthPoints
       value: 
