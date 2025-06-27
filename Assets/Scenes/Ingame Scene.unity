@@ -344,9 +344,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpawnTime: 1
   maxSpawnTime: 5
-  transformList:
+  spawnTransformList:
   - {fileID: 284842645}
-  enemyPrefab: {fileID: 2356676680789866017, guid: 7cfab6fd100f2f74bbd7d75a992b4d81, type: 3}
+  enemyPrefab: {fileID: 4670500216199066772, guid: 7cfab6fd100f2f74bbd7d75a992b4d81, type: 3}
 --- !u!4 &49909377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 416390, guid: c76d2d3504ddb4847940a815cad04644, type: 3}
@@ -4748,6 +4748,10 @@ PrefabInstance:
       propertyPath: teleportCircleUI
       value: 
       objectReference: {fileID: 4780799520231846905}
+    - target: {fileID: 4213679671418401694, guid: d913a3980bd997d4c93dece68a759972, type: 3}
+      propertyPath: floorLayerMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
     - target: {fileID: 5566921579738880178, guid: d913a3980bd997d4c93dece68a759972, type: 3}
       propertyPath: teleportCircleUI
       value: 
@@ -6348,7 +6352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55abb49072ff8d049872c9de874b07f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyTransform: {fileID: 0}
   maxCoin: 100
   addTowerImage: {fileID: 539747381}
   canvasUI: {fileID: 78571107}
@@ -10594,10 +10597,10 @@ SceneRoots:
   - {fileID: 1851164638}
   - {fileID: 6013381084228343278}
   - {fileID: 3852159231837274491}
+  - {fileID: 1128951081}
   - {fileID: 431924736}
   - {fileID: 78571106}
   - {fileID: 39244320}
   - {fileID: 319408722}
   - {fileID: 1399136070}
   - {fileID: 1448689160}
-  - {fileID: 1128951081}

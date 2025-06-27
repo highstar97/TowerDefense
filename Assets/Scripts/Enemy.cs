@@ -58,8 +58,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     private LineRenderer lineRenderer;          // Line Renderer
 
     private EffectSpawner effectSpawner;        // Bomb Effect Spawner
-
-    private EnemySpawner enemySpawner;          // 적 생성기
     #endregion
 
     #region Unity Functions
@@ -72,7 +70,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         lineRenderer.enabled = false;                   // line Renderer 비활성화
 
         effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
-        enemySpawner = GameObject.Find("Enemy Spawner").GetComponent<EnemySpawner>();
     }
 
     private void Start()
@@ -91,7 +88,6 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = false;
-    
         navMeshAgent.speed = moveSpeed;
     }
 
@@ -197,8 +193,10 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     {
         effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
 
-        CoinManager.Instance.AddCoin(20);
-        
+        Vector3 coinSpawnPosition = transform.position + Vector3.up * 0.5f;
+
+        Instantiate(coinPrefab, coinSpawnPosition, Quaternion.Euler(-90f,0f,0f));
+
         Destroy(this.gameObject);
     }
 

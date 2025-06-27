@@ -20,10 +20,8 @@ public class PlayTimeController : MonoBehaviour
 
     public void StartTime()
     {
-        Debug.Log("StartTime Called");
         timerCoroutine = StartCoroutine(CoTimer(300f)); //5분 타이머
     }
-
 
     public void StopTime()
     {
@@ -31,7 +29,6 @@ public class PlayTimeController : MonoBehaviour
         {
             StopCoroutine(timerCoroutine);
             timerCoroutine = null;
-
         }
     }
 
@@ -41,14 +38,10 @@ public class PlayTimeController : MonoBehaviour
 
         while (currentTime > 0)
         {
-
             yield return new WaitForSeconds(1f);
             currentTime -= 1f;
             m_changedPlayTimeEvent.Invoke(currentTime);
         }
         m_changedPlayTimeEvent.Invoke(0f);
-
     }
-  
-
 }
