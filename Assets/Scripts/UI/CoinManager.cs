@@ -25,6 +25,14 @@ public class CoinManager : MonoBehaviour
         UpdateUI();
     }
 
+    [ContextMenu(nameof(AddCoin))]
+    private void AddCoin()
+    {
+        // Hack: 코인 디버깅용
+        currentCoin += 100;
+        UpdateUI();
+    }
+
     public void AddCoin(int amount)
     {
         currentCoin += amount;
@@ -44,7 +52,8 @@ public class CoinManager : MonoBehaviour
         // 현재 코인 보유량보다 높은면 return
         if (currentCoin < amount) return;
         currentCoin -= amount;
-
+        Debug.Log(amount + "비용");
+        Debug.Log(currentCoin + "원");
         UpdateUI();
     }
 

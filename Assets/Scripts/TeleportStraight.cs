@@ -52,7 +52,6 @@ public class TeleportStraight : MonoBehaviour
             //int layer = 1 << LayerMask.NameToLayer("Terrain"); 
             if (Physics.Raycast(ray, out hitResult, 200, UILayerMask))
             {
-                Debug.Log("UI감지");
                 return;
             }
             else if (Physics.Raycast(ray, out hitResult, 200, floorLayerMask))

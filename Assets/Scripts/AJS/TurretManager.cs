@@ -23,9 +23,10 @@ public class TurretManager : MonoBehaviour
 
     private void Start()
     {
+        //시작시 Build UI만 활성화
         buildUI.SetActive(true);
-        // 시작시 터렛 비활성화
         turretPrefab.SetActive(false);
+        upgradeUI.SetActive(false);  
     }
     #endregion
 
@@ -41,7 +42,17 @@ public class TurretManager : MonoBehaviour
             CoinManager.Instance.UseCoin(turretCost);
 
             // 터렛 활성화
-            turretPrefab.SetActive(true); 
+            turretPrefab.SetActive(true);
+            // Upgrade UI 활성화
+            upgradeUI.SetActive(true);
+            // Build UI 비활성화
+            buildUI.SetActive(false);
+        }
+        else
+        {
+            // Hack: TurreTManger 디버그용
+            // Todo: UI Text로 변경되게 수정 예정 / 비용도 같이 표시
+            Debug.Log("돈 부족함");
         }
     }
 

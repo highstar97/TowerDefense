@@ -17,12 +17,17 @@ public class TurretAttack : MonoBehaviour
     [Header("Attack")]
     [SerializeField]
     private int attackDamage = 1;                    // 공격력
+    public int AttackDamage { get { return attackDamage; } }
 
     [SerializeField]
     private float attackRange = 5f;                  // 공격 범위
+    public float AttackRange { get { return attackRange; } }
+
+    private SphereCollider rangeColliders;
 
     [SerializeField]
-    private float attackSpeed = 1f;                  // 공격 속도
+    private float attackSpeed = 5f;                  // 공격 속도
+    public float AttackSpeed { get { return attackSpeed; } }
 
     public Transform hitPos;                        // 공격 발사 지점
 
@@ -73,8 +78,8 @@ public class TurretAttack : MonoBehaviour
     {
         effectSpawner = GameObject.Find("Bullet Effect Spawner").GetComponent<EffectSpawner>();
 
-        SphereCollider sphereCollider = GetComponent<SphereCollider>();
-        sphereCollider.radius = attackRange; // 공격 범위 동기화
+        rangeColliders = GetComponent<SphereCollider>();
+        rangeColliders.radius = attackRange; // 공격 범위 동기화
 
         animator = GetComponent<Animator>(); // animator 컴포넌트 참조
     }
@@ -215,6 +220,24 @@ public class TurretAttack : MonoBehaviour
             targetEnemy = null;  
             isAttacking = false;
         }
+    }
+
+    // TurretUpgradeUI에서 호출할 함수들
+    public void UpgradeDamage(int amount)
+    {
+        attackDamage += amount;
+    }
+
+    public void UpgradeRange(int amount)
+    {
+        attackRange += amount;
+        rangeColliders.radius = attackRange; // 공격 범위 동기화
+    }
+
+    public void UpgradeSpeed(int amount)
+    {
+        attackSpeed -= amount;
+        if(attackSpeed < 0) attackSpeed = 0.1f;
     }
     #endregion
 
