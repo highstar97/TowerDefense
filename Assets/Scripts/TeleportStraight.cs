@@ -12,6 +12,7 @@ public class TeleportStraight : MonoBehaviour
     public float warpTime = 0.1f;
     public PostProcessVolume post;
 
+    public LayerMask floorLayerMask;  // Floor LayerMask
     private void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
@@ -46,8 +47,9 @@ public class TeleportStraight : MonoBehaviour
         {
             Ray ray = new Ray(ARAVRInput.LHandPosition, ARAVRInput.LHandDirection);
             RaycastHit hitResult;
-            int layer = 1 << LayerMask.NameToLayer("Terrain");
-            if (Physics.Raycast(ray, out hitResult, 200, layer))
+            // floorLayerMask 변수로 Ray 설정으로 변경
+            //int layer = 1 << LayerMask.NameToLayer("Terrain"); 
+            if (Physics.Raycast(ray, out hitResult, 200, floorLayerMask))
             {
                 lineRenderer.SetPosition(0, ray.origin);
                 lineRenderer.SetPosition(1, hitResult.point);
@@ -56,12 +58,13 @@ public class TeleportStraight : MonoBehaviour
                 teleportCircleUI.forward = hitResult.normal;
                 teleportCircleUI.localScale = originScale * Mathf.Max(1, hitResult.distance);
             }
-            else
+            // 빈공간에 쏠 때, 거리가 무한이여서 에러 생김
+            /*else
             {
                 lineRenderer.SetPosition(0, ray.origin);
                 lineRenderer.SetPosition(1, ray.origin + ARAVRInput.LHandDirection * 200);
                 teleportCircleUI.gameObject.SetActive(false);
-            }
+            }*/
         }
     }
 

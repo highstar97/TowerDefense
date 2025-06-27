@@ -52,6 +52,9 @@ public class Enemy : MonoBehaviour, ITakeDamageable
 
     private NavMeshAgent navMeshAgent;          // Nav Mesh Agent Component
 
+    [SerializeField]
+    private GameObject coinPrefab; // 코인 프리팹
+    
     private LineRenderer lineRenderer;          // Line Renderer
 
     private EffectSpawner effectSpawner;        // Bomb Effect Spawner
@@ -195,8 +198,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         effectSpawner.SpawnEffect(this.transform.position, this.transform.rotation.eulerAngles);
 
         CoinManager.Instance.AddCoin(20);
-
-        enemySpawner.Release(this);
+        
+        Destroy(this.gameObject);
     }
 
     public void ActiveLineEffect()
