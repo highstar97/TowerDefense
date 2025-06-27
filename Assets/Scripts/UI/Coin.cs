@@ -5,39 +5,53 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    public int coinValue = 10;
+    public int coinValue = 10;              // 코인 가치
 
-    public float moveSpeed = 5f;
-    private bool isCollected = false; //코인 수집
+    private bool isMovedToPlayer = false;
+    private float moveToPlayerSpeed = 5f;   // 플레이어로 향하는 속도
+    private float coinUpDownSpeed = 5f;     // 코인 위아래 움직이는 속도
+    private float rotationSpeed = 90f;      // 코인 시계방향으로 회전하는 속도
+    private Vector3 startPos;
+    private Transform playerTransform;      // 플레이어 위치
 
-    private Transform player; 
+    private void Start()
+    {
+        playerTransform = GameObject.Find("Player").transform;
 
-  
+        StartCoroutine(Co_MoveToPlayer());
+
+        startPos = transform.position;
+
+    }
+
     private void Update()
     {
-        if (isCollected && player != null)
+        if(isMovedToPlayer == false)
         {
-            Debug.Log(" // ");
-            transform.position = Vector3.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, player.position) < 0.6f)
+            // 위아래로 움직이면서, 시계방향으로 도는
+            float y = Mathf.Sin(Time.time * coinUpDownSpeed) * 0.5f;
+            transform.position = startPos + new Vector3(0, y, 0);
+
+            transform.Rotate(0f, 0f, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private IEnumerator Co_MoveToPlayer()
+    {
+        yield return new WaitForSeconds(3.0f);
+        isMovedToPlayer = true;
+
+        while (true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, moveToPlayerSpeed * Time.deltaTime);
+            yield return null;
+
+            if (Vector3.Distance(transform.position, playerTransform.position) < 0.6f)
             {
                 CoinManager.Instance.AddCoin(coinValue);
                 Destroy(gameObject);
+                yield break;
             }
         }
-
     }
-
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            player = other.transform;
-            isCollected = true;
-        }
-    }
-
 }
-
