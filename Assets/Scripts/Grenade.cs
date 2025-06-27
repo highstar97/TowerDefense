@@ -145,6 +145,13 @@ public class Grenade : MonoBehaviour
         if(Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Terrain")))
         {
             Vector3 targetPoint = hit.point;
+            //Vector3 velocity;
+            //float time = 1.2f;
+            //if(CalculateThrowVelocity(throwPoint.position, targetPoint, time, out velocity))
+            //{
+            //    velocity.y += 0.15f;
+            //    grenadeRigidbody.velocity = velocity;
+            //}
 
             Vector3 direction = (targetPoint - throwPoint.position).normalized;
             //라인렌더러를 보정함.
@@ -186,4 +193,26 @@ public class Grenade : MonoBehaviour
         gun.SetActive(true);
         ikScript.GetComponent<IKScripts>().enabled = true;
     }
+
+    //bool CalculateThrowVelocity(Vector3 start, Vector3 end, float flightTime, out Vector3 velocity)
+    //{
+    //    velocity = Vector3.zero;
+
+    //    Vector3 toTarget = end - start;
+    //    Vector3 toTargetXZ = toTarget;
+    //    toTargetXZ.y = 0;
+
+    //    float y = toTarget.y;
+    //    float xz = toTargetXZ.magnitude;
+
+    //    float vxz = xz / flightTime;
+    //    float vy = y / flightTime + 0.5f * Mathf.Abs(Physics.gravity.y) * flightTime;
+
+    //    Vector3 result = toTargetXZ.normalized * vxz;
+    //    result.y = vy;
+
+    //    velocity = result;
+    //    return true;
+    //}
+
 }
