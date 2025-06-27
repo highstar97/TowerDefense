@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 46288881}
   - component: {fileID: 46288882}
   m_Layer: 0
-  m_Name: Enemy Spanwer
+  m_Name: Enemy Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7830,6 +7830,9 @@ MonoBehaviour:
   isWarp: 1
   warpTime: 0.1
   post: {fileID: 1850071696}
+  floorLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1661156614
 MonoBehaviour:
   m_ObjectHideFlags: 0
