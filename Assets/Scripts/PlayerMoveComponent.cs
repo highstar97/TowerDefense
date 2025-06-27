@@ -51,9 +51,9 @@ public class PlayerMoveComponent : MonoBehaviour
         controller.Move(direction * speed * Time.deltaTime);
 
 
-        //Ä«¸Þ¶ó ¾ÕÂÊ¿¡¼­ ÄÉ¸¯ÅÍ°¡ ÃÑÀ» µå´Â ¸ð¼Ç ¹× ¼ö·ùÅºÀ» ´øÁö´Â ¸ð¼ÇÀ» ÀÛ¼º
+        //Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½É¸ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Û¼ï¿½
         Vector3 cameraForward = Camera.main.transform.forward;
-        cameraForward.y = 0; //ÁÂ¿ìÈ¸Àü½Ã Ä«¸Þ¶ó¸¦ µû¶ó°¡°Ô ¸¸µé¾úÁö¸¸ »óÇÏÈ¸Àü½Ã´Â ¾ÈµÇ°Ô ¸·À½
+        cameraForward.y = 0; //ï¿½Â¿ï¿½È¸ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ó°¡°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½È¸ï¿½ï¿½ï¿½Ã´ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½ï¿½ï¿½ï¿½
         transform.forward = cameraForward.normalized;
     }
     #endregion
