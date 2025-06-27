@@ -8,7 +8,6 @@ public class CanvasUI : MonoBehaviour
     public Text playTimeText;
     public Text coinText;
 
-  
     public void OnChangedPlayTime(float t) //게임 타이머 
     {
         playTimeText.text = $"{(int)(t / 60):00}:{(int)(t % 60):00}";
@@ -17,6 +16,4 @@ public class CanvasUI : MonoBehaviour
     {
         coinText.text = $"{currentCoin} / {maxCoin}";
     }
-
-
 }

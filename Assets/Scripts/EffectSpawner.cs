@@ -45,7 +45,7 @@ public class EffectSpawner : MonoBehaviour
         effect.Play();
 
         // 자동으로 릴리스 할 수 있게 코루틴 생성
-        StartCoroutine(ReleaseAfterPlay(effect));
+        StartCoroutine(ReleaseAfterPlay(effect));   
     }
 
     public void Release(Effect effect)
