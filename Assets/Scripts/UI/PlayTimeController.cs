@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class PlayTimeController : MonoBehaviour
 {
     [SerializeField]
-    public float CountTime = 300f;
+    public float countTime = 300f;
 
     [SerializeField]
     UnityEvent<float> m_changedPlayTimeEvent;
@@ -34,14 +34,15 @@ public class PlayTimeController : MonoBehaviour
 
     IEnumerator CoTimer(float time)
     {
-        float currentTime = time;
+        countTime = time;
 
-        while (currentTime > 0)
+        while (countTime > 0)
         {
             yield return new WaitForSeconds(1f);
-            currentTime -= 1f;
-            m_changedPlayTimeEvent.Invoke(currentTime);
+            countTime -= 1f;
+            m_changedPlayTimeEvent.Invoke(countTime);
         }
-        m_changedPlayTimeEvent.Invoke(0f);
+        countTime = 0f;
+        m_changedPlayTimeEvent.Invoke(countTime);
     }
 }
