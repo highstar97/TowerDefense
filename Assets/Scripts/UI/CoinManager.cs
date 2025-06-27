@@ -5,6 +5,9 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance; //코인 싱글톤 객체생성
 
+
+    public Transform enemyTransform;
+
     public int maxCoin = 100;
     private int currentCoin = 0;
 
@@ -19,7 +22,7 @@ public class CoinManager : MonoBehaviour
     void Start()
     {
         if (addTowerImage != null)
-            addTowerImage.gameObject.SetActive(false); 
+            addTowerImage.gameObject.SetActive(false);
     }
 
 
@@ -36,6 +39,7 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoin(int amount)
     {
+
         currentCoin += amount;
         if (currentCoin > maxCoin)
             currentCoin = maxCoin;
@@ -59,7 +63,6 @@ public class CoinManager : MonoBehaviour
     {
         if (currentCoin >= maxCoin)
         {
-           // GameObject tower = Instantiate(towerPrefab);
             Vector3 spawnPosition = new Vector3(-22.69f, -0.13f, -1.46f);
             GameObject tower = Instantiate(towerPrefab, spawnPosition, Quaternion.identity);
 
