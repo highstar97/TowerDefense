@@ -6152,7 +6152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04fe3ea60b642f842999ddb3b0054ac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initTime: 300
+  initTime: 60
   remainedTime: 0
   m_changedPlayTimeEvent:
     m_PersistentCalls:

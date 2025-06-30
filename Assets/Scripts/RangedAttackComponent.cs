@@ -40,6 +40,8 @@ public class RangedAttackComponent : MonoBehaviour
         crosshairInstance = Instantiate(crosshairPrefabs);
     }
 
+    // 작성자 : 강사님, 박규탁
+    // 기  능 : 강사님이 작성하신 기본 코드에 LayerMask를 통해서 적을 범용적으로(쉽게 에디터에서 수정가능하게) 공격하는 함수
     private void Update()
     {
         ARAVRInput.DrawCrosshair(crosshairInstance.transform);
@@ -63,6 +65,7 @@ public class RangedAttackComponent : MonoBehaviour
                     }
                 }
 
+                // 총알 궤적 그리기
                 StartCoroutine(DrawLineEffect(fireTransform.position, hitResult.point, 0.03f));
 
                 // Effect Spawner에서 생성
@@ -71,6 +74,8 @@ public class RangedAttackComponent : MonoBehaviour
         }
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 총알 궤적을 time 만큼 인게임에서 그려냄
     private IEnumerator DrawLineEffect(Vector3 startPosition, Vector3 endPosition, float time)
     {
         lineRenderer.SetPosition(0, startPosition);

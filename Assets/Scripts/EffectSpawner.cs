@@ -15,6 +15,8 @@ public class EffectSpawner : MonoBehaviour
     #endregion
 
     #region Unity Functions 
+    // 작성자 : 박규탁
+    // 기  능 : 오브젝트풀을 생성하기
     private void Awake()
     {
         effectPool = new ObjectPool<Effect>(
@@ -34,6 +36,8 @@ public class EffectSpawner : MonoBehaviour
     #endregion
 
     #region User Functions
+    // 작성자 : 박규탁
+    // 기  능 : position위치에 direction 방향으로 Effect를 생성하고 생성시, 자동으로 내장된 파티클, 사운드를 실행
     public void SpawnEffect(Vector3 position, Vector3 direction)
     {
         // Effect 생성 후, 위치 조정
@@ -48,11 +52,15 @@ public class EffectSpawner : MonoBehaviour
         StartCoroutine(ReleaseAfterPlay(effect));   
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 이펙트 사용 후 오브젝트 풀에 반환하는 함수
     public void Release(Effect effect)
     {       
         effectPool.Release(effect);
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 파티클과 오디오 둘 다 실행을 완료했다면 오브젝트풀로 반환하는 코루틴
     public IEnumerator ReleaseAfterPlay(Effect effect)
     {
         // 파티클과 오디오 둘 중 하나라도 플레이되고 있으면 대기

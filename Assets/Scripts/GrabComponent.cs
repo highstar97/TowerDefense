@@ -40,6 +40,8 @@ public class GrabComponent : MonoBehaviour
     #endregion
 
     #region User Functions
+    // 작성자 : 강사님, 박규탁
+    // 기  능 : 기본적으로 잡는 기능 + 레이어를 데이터화하여 쉽게 인스펙터 창에서 잡을 수 있는 물체를 수정할 수 있게 변경
     void TryGrab()
     {
         if (ARAVRInput.GetDown(ARAVRInput.Button.HandTrigger, ARAVRInput.Controller.RTouch))
@@ -88,6 +90,7 @@ public class GrabComponent : MonoBehaviour
         }
     }
 
+    // 작성자 : 강사님
     void TryUnGrab()
     {
         Vector3 throwDirection = ARAVRInput.RHandPosition - prevPosition;
@@ -104,9 +107,10 @@ public class GrabComponent : MonoBehaviour
         }
     }
 
+    // 작성자 : 강사님
     IEnumerator GrabbingAnimator()
     {
-        grabbedObject.GetComponent<Rigidbody>().isKinematic = true; // ���� ��� ����
+        grabbedObject.GetComponent<Rigidbody>().isKinematic = true;
         prevPosition = ARAVRInput.RHandPosition;
         prevRotation = ARAVRInput.RHand.rotation;
         Vector3 startLocation = grabbedObject.transform.position;

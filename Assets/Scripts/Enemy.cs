@@ -114,8 +114,9 @@ public class Enemy : MonoBehaviour, ITakeDamageable
     #endregion
 
     #region User Functions
-    // Instead of OnDamageProcess(), Use it.
-    // TakeDamage is from ITakedamageable.
+    // 작성자 : 박규탁
+    // 기  능 : OnDamageProcess()를 대신해서 사용하는 데미지 처리 함수. ITakeDamageable 인터페이스로 상속된 함수
+    //         받은 데미지 중 처리할 수 있는 데미지만큼 UI 처리
     public void TakeDamage(int damageAmount = 1)
     {
         int availableDamage = Mathf.Min(currentHp, damageAmount);
@@ -140,6 +141,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         }
     }
 
+    // 작성자 : 강사님
     private void Idle()
     {
         elapsedTime += Time.deltaTime;
@@ -149,6 +151,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         }
     }
 
+    // 작성자 : 강사님
     private void Move()
     {
         navMeshAgent.enabled = true;
@@ -161,6 +164,8 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         }
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 공격 속도에 비례해서 공격을 진행하는 함수. 실행 시 애니메이션 같이 실행
     private void Attack()
     {
         elapsedTime += Time.deltaTime;
@@ -176,6 +181,7 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         }
     }
     
+    // 작성자 : 강사님
     private IEnumerator Damage()
     {
         navMeshAgent.enabled = false;   // Stop Finding Paths
@@ -200,11 +206,15 @@ public class Enemy : MonoBehaviour, ITakeDamageable
         Destroy(this.gameObject);
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : Attack 실행 시, 라인렌더러를 통해서 공격하는 것을 시각화 해주는 함수(Draw Line Effect)코루틴을 실행
     public void ActiveLineEffect()
     {
         StartCoroutine(DrawLineEffect(this.transform.position, targetTransform.position, 0.1f));
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 라인렌더러를 활성화하여 탄알 궤적 그리는 함수
     private IEnumerator DrawLineEffect(Vector3 startPosition, Vector3 endPosition, float time)
     {
         lineRenderer.SetPosition(0, startPosition);

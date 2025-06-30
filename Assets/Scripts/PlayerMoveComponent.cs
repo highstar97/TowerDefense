@@ -27,6 +27,7 @@ public class PlayerMoveComponent : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
+    // 작성자 : 강사님
     private void Update()
     {
         float horizontal = ARAVRInput.GetAxis("Horizontal");

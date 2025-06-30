@@ -11,6 +11,8 @@ public class WayPointNavigation : MonoBehaviour
 
     private float rotationSpeed = 1.0f;
 
+    // 작성자 : 박규탁
+    // 기  능 : 맵에 배치된 웨이포인트들을 따라가게 하는 것을 목표로 구현중이었으나, 기획을 폐기하고 네비매쉬 사용하기로 결정
     void Update()
     {
         if (waypoints.Length == 0) return;

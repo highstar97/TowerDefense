@@ -15,17 +15,17 @@ public class DroneAI : MonoBehaviour
         Damage,
         Die
     }
-    DroneState state = DroneState.Idle; //ÃÊ±â ½ÃÀÛ »óÅÂ´Â Idle·Î ¼³Á¤
-    public float idleDelayTime = 2f; //´ë±â »óÅÂÀÇ Áö¼Ó½Ã°£
-    float currentTime; //°æ°ú ½Ã°£
+    DroneState state = DroneState.Idle; //ï¿½Ê±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ Idleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float idleDelayTime = 2f; //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
+    float currentTime; //ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    public float moveSpeed = 1; //°ø°Ý ¼Óµµ
-    Transform tower; //Å¸¿öÀ§Ä¡(Å¸°ÙÀ§Ä¡)
-    NavMeshAgent agent; //³»ºñ¸Å½¬ ¿¡ÀÌÀüÆ® ÄÄÆ÷³ÍÆ®
-    public float attackRange = 3; //Å¸¿ö¿Í 3¹ÌÅÍ °Å¸®¸é °ø°Ý ½ÃÀÛ
-    public float attackDelayTime = 2; //°ø°Ý µô·¹ÀÌ ½Ã°£
+    public float moveSpeed = 1; //ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½
+    Transform tower; //Å¸ï¿½ï¿½ï¿½ï¿½Ä¡(Å¸ï¿½ï¿½ï¿½ï¿½Ä¡)
+    NavMeshAgent agent; //ï¿½ï¿½ï¿½ï¿½Å½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    public float attackRange = 3; //Å¸ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float attackDelayTime = 2; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    [SerializeField] //private¼Ó¼º ÀÌÁö¸¸ ¿¡µðÅÍ¿¡ ³ëÃâÀÌ µÈ´Ù.
+    [SerializeField] //privateï¿½Ó¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´ï¿½.
     int hp = 3;
 
     [SerializeField]
@@ -77,7 +77,7 @@ public class DroneAI : MonoBehaviour
     void Move()
     {
         agent.enabled = true;
-        agent.SetDestination(tower.position);   // ³×ºñ°ÔÀÌ¼ÇÀÇ ¸ñÀûÁö¸¦ Å¸¿ö·Î ¼³Á¤
+        agent.SetDestination(tower.position);   // ï¿½×ºï¿½ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if(Vector3.Distance(transform.position, tower.position) < attackRange)
         {
             state = DroneState.Attack;
@@ -89,9 +89,9 @@ public class DroneAI : MonoBehaviour
         currentTime += Time.deltaTime;
         if(currentTime > attackDelayTime)
         {
-            // Å¸¿ö Ã¼·Â °¨¼Ò
+            // Å¸ï¿½ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             --Tower.Instance.HP;
-            // ÇÇ°Ý ÀÌÆåÆ® È¿°ú
+            // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® È¿ï¿½ï¿½
             currentTime = 0f;
         }
     }
@@ -115,7 +115,7 @@ public class DroneAI : MonoBehaviour
     }
     IEnumerator Damage()
     {
-        agent.enabled = false;  // ±æ Ã£±â ÁßÁö
+        agent.enabled = false;  // ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Material material = GetComponentInChildren<MeshRenderer>().material;
         Color originalColor = material.color;
         material.color = Color.red;

@@ -14,11 +14,15 @@ public class Bomb : MonoBehaviour
     #endregion
 
     #region Unity Functions
+    // 작성자 : 박규탁
+    // 기  능 : 맵에 배치된 Explosion Effect Spawner 찾기
     private void Awake()
     {
         effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : target Layer Masks에 등록된 타겟들에게 거리에 따른 데미지 주는 함수
     private void OnCollisionEnter(Collision collision)
     {
         Collider[] targets = Physics.OverlapSphere(this.transform.position, this.range, targetLayerMasks);

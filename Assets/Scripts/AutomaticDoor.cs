@@ -37,6 +37,8 @@ public class AutomaticDoor : MonoBehaviour
     #endregion
 
     #region Unity Functions
+    // 작성자 : 박규탁
+    // 기  능 : 좌측문, 우측문 오브젝트 찾기
     private void Start()
     {
         leftDoor = transform.Find("Left Door").gameObject;
@@ -48,6 +50,8 @@ public class AutomaticDoor : MonoBehaviour
         targetLocalPositionOfRightDoor = prevLocalPositionOfRightDoor + new Vector3(distanceOfMove, 0, 0);
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : triggerLayerMasks에 등록된 layer와 Trigger Enter된 경우 문 열기 코루틴 호출
     private void OnTriggerEnter(Collider other)
     {
         if ((triggerLayerMasks & (1 << other.gameObject.layer)) != 0)
@@ -66,6 +70,8 @@ public class AutomaticDoor : MonoBehaviour
         }
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : triggerLayerMasks에 등록된 layer와 Trigger Exit된 경우 문 닫기 코루틴 호출
     private void OnTriggerExit(Collider other)
     {
         if ((triggerLayerMasks & (1 << other.gameObject.layer)) != 0)
@@ -85,6 +91,9 @@ public class AutomaticDoor : MonoBehaviour
     #endregion
 
     #region User Functions
+
+    // 작성자 : 박규탁
+    // 기  능 : 문의 현재 위치와 열렸을 때의 위치를 시간에 따라 보간하여 열리는 동작을 수행하게 함.
     private IEnumerator OpenDoor()
     {
         elapsedTime = 0.0f;
@@ -97,6 +106,8 @@ public class AutomaticDoor : MonoBehaviour
         }
     }
 
+    // 작성자 : 박규탁
+    // 기  능 : 문의 현재 위치와 닫혔을 때의 위치를 시간에 따라 보간하여 닫히는 동작을 수행하게 함.
     private IEnumerator CloseDoor()
     {
         elapsedTime = 0.0f;

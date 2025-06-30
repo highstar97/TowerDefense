@@ -228,9 +228,9 @@ MonoBehaviour:
   currentCoin: 0
   maxCoint: 100
   durationOfIdleState: 2
-  moveSpeed: 1
-  attackRange: 1
-  attackSpeed: 0.5
+  moveSpeed: 3
+  attackRange: 3
+  attackSpeed: 1
   healthPointPrefab: {fileID: 1765833481965015528, guid: bcdc445eab564ac47b97b31c7b98b116, type: 3}
   coinPrefab: {fileID: 8946533331580860441, guid: 7ee5c52ca1aaa794792bcc3848cd9610, type: 3}
 --- !u!54 &874963336111468450

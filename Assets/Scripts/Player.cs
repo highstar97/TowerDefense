@@ -50,6 +50,8 @@ public class Player : MonoBehaviour, ITakeDamageable
     #endregion
 
     #region User Functions
+    // 작성자 : 박규탁
+    // 기  능 : 데미지 받았을 때, 처리할 수 있는 데미지만큼 데미지 받고 UI 업데이트
     public void TakeDamage(int damageAmount = 1)
     {
         int availableDamage = Mathf.Min(currentHp, damageAmount);
@@ -68,6 +70,7 @@ public class Player : MonoBehaviour, ITakeDamageable
         }
     }
 
+    // 작성자 : 강사님
     IEnumerator DamageEvent()
     {
         damageImage.enabled = true;

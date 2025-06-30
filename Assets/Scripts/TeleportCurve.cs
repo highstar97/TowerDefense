@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class TeleportCurve : MonoBehaviour
 {
-    public Transform teleportCircleUI; //ÅÚ·¹Æ÷Æ®¸¦ Ç¥½ÃÇÒ UI
-    LineRenderer lr;//¼±À» ±×¸± ¶óÀÎ·»´õ·¯
-    Vector3 originScale = Vector3.one * 0.02f; //ÃÖÃÊ ÅÚ·¹Æ÷Æ® UIÅ©±â
-    public int lineSmooth = 40; //Ä¿ºêÀÇ ºÎµå·¯¿î Á¤µµ
-    public float curveLength = 50; //Ä¿ºêÀÇ ±æÀÌ
-    public float gravity = -60; // Ä¿ºêÀÇ Áß·Â
-    public float simulateTime = 0.02f;//°î¼Ç ½Ã¹Ä·¹ÀÌ¼ÇÀÇ °£°Ý ¹× ½Ã°£
-    List<Vector3> lines = new List<Vector3>();//°î¼±À» ÀÌ·ç´Â Á¡µéÀ» ±â¾ïÇÒ ¸®½ºÆ®
+    public Transform teleportCircleUI; //ï¿½Ú·ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ UI
+    LineRenderer lr;//ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½
+    Vector3 originScale = Vector3.one * 0.02f; //ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIÅ©ï¿½ï¿½
+    public int lineSmooth = 40; //Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½Îµå·¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float curveLength = 50; //Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float gravity = -60; // Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ß·ï¿½
+    public float simulateTime = 0.02f;//ï¿½ï¿½ï¿½ ï¿½Ã¹Ä·ï¿½ï¿½Ì¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½
+    List<Vector3> lines = new List<Vector3>();//ï¿½î¼±ï¿½ï¿½ ï¿½Ì·ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
     // Start is called before the first frame update
     void Start()
     {
-        //½ÃÀÛÇÒ ¶§ ºñÈ°¼ºÈ­ ÇÑ´Ù.
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ñ´ï¿½.
         teleportCircleUI.gameObject.SetActive(false);
-        //¶óÀÎ ·»´õ·¯ ÄÄÆ÷³ÍÆ® ¾ò¾î¿À±â
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         lr = GetComponent<LineRenderer>();
-        //¶óÀÎ·»´õ·¯ÀÇ ¼± ³Êºñ ÁöÁ¤
+        //ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Êºï¿½ ï¿½ï¿½ï¿½ï¿½
         lr.startWidth = 0.0f;
         lr.endWidth = 0.2f;
     }
@@ -29,11 +29,11 @@ public class TeleportCurve : MonoBehaviour
     {
         if (ARAVRInput.GetDown(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
         {
-            lr.enabled = true; //·»´õ·¯ È°¼ºÈ­
+            lr.enabled = true; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         }
         else if (ARAVRInput.GetUp(ARAVRInput.Button.One, ARAVRInput.Controller.LTouch))
         {
-            lr.enabled = false; //·»´õ·¯ ºñÈ°¼ºÈ­
+            lr.enabled = false; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             if (teleportCircleUI.gameObject.activeSelf)
             {
                 GetComponent<CharacterController>().enabled = false;
@@ -47,56 +47,56 @@ public class TeleportCurve : MonoBehaviour
             MakeLines();
         }
     }
-    void MakeLines() //¶óÀÎ·»´õ·¯¸¦ ÀÌ¿ëÇØ Á¡Àº ¸¸µé°í ¼±À» ±×¸°´Ù.
+    void MakeLines() //ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½.
     {
-        lines.RemoveRange(0, lines.Count); //¸®½ºÆ®¿¡ ´ã±ä À§Ä¡ Á¤º¸µéÀ» ºñ¿öÁØ´Ù.
-        Vector3 dir = ARAVRInput.LHandDirection * curveLength; //¼±ÀÌ ÁøÇàµÉ ¹æÇâ ¼³Á¤
-        Vector3 pos = ARAVRInput.LHandPosition; //¼±ÀÌ ±×·ÁÁú À§Ä¡ ÃÊ±â°ª ¼³Á¤
-        lines.Add(pos); //ÃÖÃÊ À§Ä¡¸¦ ¸®½ºÆ®¿¡ µî·Ï
+        lines.RemoveRange(0, lines.Count); //ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+        Vector3 dir = ARAVRInput.LHandDirection * curveLength; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Vector3 pos = ARAVRInput.LHandPosition; //ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ê±â°ª ï¿½ï¿½ï¿½ï¿½
+        lines.Add(pos); //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
 
         for(int i=0; i<lineSmooth; i++) {
-            Vector3 lastPos = pos; //ÇöÀç À§Ä¡ ±â¾ï
+            Vector3 lastPos = pos; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
             //v = v0+at
-            dir.y += gravity * simulateTime; // µî¼Ó ¿îµ¿À¸·Î ´ÙÀ½ À§Ä¡ °è»ê
+            dir.y += gravity * simulateTime; // ï¿½ï¿½ï¿½ ï¿½îµ¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
             pos += dir * simulateTime;
-            if (CheckHitRay(lastPos, ref pos)) //Ray Ãæµ¹Ã¼Å©°¡ ÀÏ¾î³µÀ¸¸é..
+            if (CheckHitRay(lastPos, ref pos)) //Ray ï¿½æµ¹Ã¼Å©ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½ï¿½ï¿½..
             {
-                lines.Add(pos); //Ãæµ¹ ÁöÁ¡À» µî·ÏÇÏ°í Á¾·á
+                lines.Add(pos); //ï¿½æµ¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
                 break;
             }
             else
             {
-                //ÅÚ·¹Æ÷Æ® UI ºñÈ°¼ºÈ­
+                //ï¿½Ú·ï¿½ï¿½ï¿½Æ® UI ï¿½ï¿½È°ï¿½ï¿½È­
                 teleportCircleUI.gameObject.SetActive(false);
             }
         }
-        //¶óÀÎ ·»´õ·¯°¡ Ç¥ÇöÇÒ Á¡ÀÇ °³¼ö¸¦ µî·ÏµÈ °³¼öÀÇ Å©±â·Î ÇÒ´ç
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
         lr.positionCount = lines.Count;
-        //¶óÀÎ ·»´õ·¯¿¡ ±¸ÇØÁø Á¡ÀÇ Á¤º¸¸¦ ÀúÀå
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         lr.SetPositions(lines.ToArray());
     }
     private bool CheckHitRay(Vector3 lastPos,  ref Vector3 pos)
     {
-        //¾Õ Á¡ÀÇ À§Ä¡¿Í ´ÙÀ½ Á¡ÀÇ À§Ä¡¸¦ ¹Þ¾Æ ·¹ÀÌÀÇ Ãæµ¹À» Ã¼Å©
+        //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ Ã¼Å©
         Vector3 rayDir = pos - lastPos;
         Ray ray = new Ray(lastPos, rayDir);
         RaycastHit hitInfo;
-        //RayCastÇÒ ¶§ ·¹ÀÌÀÇ Å©±â¸¦ ¾Õ Á¡°ú ´ÙÀ½ Á¡ »çÀÌÀÇ °Å¸®·Î ÇÑÁ¤ÇÑ´Ù.
+        //RayCastï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
         if (Physics.Raycast(ray, out hitInfo, rayDir.magnitude))
         {
             pos = hitInfo.point;
             int layer = LayerMask.NameToLayer("Terrain");
-            //Terrain ·¹ÀÌ¾î¿Í Ãæµ¹ÇßÀ» °æ¿ì¿¡¸¸ ÅÚ·¹Æ÷Æ® UI°¡ Ç¥½ÃµÇµµ·Ï ÇÑ´Ù.
+            //Terrain ï¿½ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIï¿½ï¿½ Ç¥ï¿½ÃµÇµï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½.
             if (hitInfo.transform.gameObject.layer == layer)
             {
-                //ÅÚ·¹Æ÷Æ® UIÈ°¼ºÈ­
+                //ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIÈ°ï¿½ï¿½È­
                 teleportCircleUI.gameObject.SetActive(true);
-                //ÅÚ·¹Æ÷Æ® UIÀÇ À§Ä¡ ÁöÁ¤
+                //ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
                 teleportCircleUI.position = pos;
-                //ÅÚ·¹Æ÷Æ® UIÀÇ ¹æÇâ ¼³Á¤
+                //ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 teleportCircleUI.forward = hitInfo.normal;
                 float distance = (pos-ARAVRInput.LHandPosition).magnitude;
-                //ÅÚ·¹Æ÷Æ® UI°¡ º¸ÀÏ Å©±â¸¦ ¼³Á¤
+                //ï¿½Ú·ï¿½ï¿½ï¿½Æ® UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½
                 teleportCircleUI.localScale = originScale * Mathf.Max(1, distance);
             }
             return true;
