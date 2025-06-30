@@ -21,9 +21,4 @@ public class Ending_Win : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void Playtime()
-    {
-
-    }
 }
