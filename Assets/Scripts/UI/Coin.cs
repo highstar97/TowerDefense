@@ -36,6 +36,10 @@ public class Coin : MonoBehaviour
         }
     }
 
+    /* 작성자: 임은성
+     * 기능: 생성된 후 3초 뒤부터 코인이 플레이어를 향해 이동하며,
+     *       일정 거리(0.6f) 이내로 접근 시 플레이어가 코인을 획득하고 코인을 파괴함
+     */
     private IEnumerator Co_MoveToPlayer()
     {
         yield return new WaitForSeconds(3.0f);

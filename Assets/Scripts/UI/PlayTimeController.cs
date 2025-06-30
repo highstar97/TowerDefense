@@ -34,6 +34,12 @@ public class PlayTimeController : MonoBehaviour
         }
     }
 
+
+    /* 작성자: 임은성
+     * 기능: 남은 시간이 0이 될 때까지 1초마다 감소시키고,
+     *       시간이 모두 지나면 플레이어 승리 처리 후 게임 종료
+    */
+
     IEnumerator CoTimer()
     {
         while (remainedTime > 0)

@@ -36,6 +36,11 @@ public class CoinManager : MonoBehaviour
         UpdateUI();
     }
 
+
+    /* 작성자 : 임은성
+     * 기능: 코인 획득함수 
+     **/
+
     public void AddCoin(int amount)
     {
         totalEarnedCoin += amount;

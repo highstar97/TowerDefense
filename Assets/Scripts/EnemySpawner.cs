@@ -23,6 +23,11 @@ public class EnemySpawner : MonoBehaviour
 
     private IObjectPool<Enemy> enemyPool; //Enemy 오브젝트 풀
 
+
+    /* 작성자: 임은성
+    * 기능: 오브젝트 풀을 이용한 적 생성 및 재사용 관리
+    */
+
     private void Awake()
     {
         enemyPool = new ObjectPool<Enemy>(
