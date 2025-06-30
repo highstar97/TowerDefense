@@ -11,19 +11,19 @@ public class Ending : MonoBehaviour
     public Text playTime; //게임 시간
     public Text CoinCount; //코인 얻기
 
-    //게임 재시작
+    //게임 재시작 - 하정우
     public void retry()
     {
         SceneManager.LoadScene(1);
     }
 
-    //게임종료
+    //게임종료 - 하정우
     public void GameOver()
     {
         Application.Quit();
     }
 
-    // Start is called before the first frame update
+    // Ending UI 점수표기 - 하정우
     void Start()
     {
         CoinCount.text = "생존 시간 : " + GameObject.Find("CoinManager").GetComponent<CoinManager>().totalEarnedCoin.ToString();

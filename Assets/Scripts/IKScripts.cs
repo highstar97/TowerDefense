@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-//총을 안정적으로 잡게 하는 scripts
+//총을 안정적으로 잡게 하는 script
 public class IKScripts : MonoBehaviour
 {
     Animator anim;
     public Transform rightHand;
     public Transform leftHand;
     public Transform gunPivot;
+
+    //IK 코드 설정
     private void OnAnimatorIK(int layerIndex)
     {
         anim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);

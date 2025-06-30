@@ -32,7 +32,8 @@ public class TurretManager : MonoBehaviour
 
     #region User Functions
 
-    // BuildUI에 있는 구매 버튼 OnClick에 넣을 함수
+    // 작성자: 안진성, 기능: 터렛을 구매 및 활성화 하는 함수
+    // BuildUI 에 있는 구매 버튼의 OnClick에 넣기
     public void BuildTurret()
     {
         //CoinManager.Instance.

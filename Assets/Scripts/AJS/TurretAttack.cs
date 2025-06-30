@@ -74,6 +74,7 @@ public class TurretAttack : MonoBehaviour
         }
     }
 
+    // 작성자: 안진성, 기능: 공격 스탯 및 effectSpawner 초기화
     private void Start()
     {
         effectSpawner = GameObject.Find("Bullet Effect Spawner").GetComponent<EffectSpawner>();
@@ -84,6 +85,7 @@ public class TurretAttack : MonoBehaviour
         animator = GetComponent<Animator>(); // animator 컴포넌트 참조
     }
 
+    // 작성자: 안진성, 기능: 거리 안에 들어온 적 리스트로 관리
     private void OnTriggerEnter(Collider other)
     {
         // Enemy 인지 확인
@@ -106,7 +108,7 @@ public class TurretAttack : MonoBehaviour
             }
         }
     }
-
+    // 작성자: 안진성, 기능: 거리 밖에 나간 적 관리 및 현재 타켓인지 확인
     private void OnTriggerExit(Collider other)
     {
         // 나간 적인 Enemy 인지 확인
@@ -136,6 +138,7 @@ public class TurretAttack : MonoBehaviour
             }
         }
     }
+    // 작성자: 안진성, 기능: 공격 범위 시각화
     private void OnDrawGizmos()
     {
         if (!gizmosActive) return; // 기즈모 활성화 여부
@@ -158,6 +161,7 @@ public class TurretAttack : MonoBehaviour
 
     #region User Functions
 
+    // 작성자: 안진성, 기능: 공격 속도 만큼 공격 반복 및 이펙트
     private IEnumerator AttackTargetEnemy()
     {
         isAttacking = true; // 공격 상태 활성화    

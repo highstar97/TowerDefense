@@ -20,6 +20,7 @@ public class TurretRotate : MonoBehaviour
         towerAttack = GetComponent<TurretAttack>();
     }
 
+    // 작성자: 안진성, 기능: 범위 안에 있는 적을 바라보는 함수
     private void Update()
     {
         if (towerAttack.TargetEnemy != null)

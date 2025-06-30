@@ -41,6 +41,7 @@ public class TurretUpgradeUI : MonoBehaviour
 
     #region Unity Functions;
 
+    // 작성자: 안진성, 기능: 터렛 UI 초기화
     private void Start()
     {
         speedUpgrade.onClick.AddListener(UpgradeSpeedOnClick);
@@ -65,6 +66,7 @@ public class TurretUpgradeUI : MonoBehaviour
 
     #region User Functions
 
+    // 작성자: 안진성, 기능: 데미지 업그레이드 함수
     public void UpgradeDamageOnClick()
     {
         // 업그레이드 비용이 충분하면
@@ -82,6 +84,8 @@ public class TurretUpgradeUI : MonoBehaviour
             damageUpgradeCostText.text = damageUpgradeCost + " Coin";
         }
     }
+
+    // 작성자: 안진성, 기능: 거리 업그레이드 함수
     public void UpgradeRangeOnClick()
     {
         // 업그레이드 비용이 충분하면
@@ -99,6 +103,7 @@ public class TurretUpgradeUI : MonoBehaviour
             rangeUgradeCostText.text = rangeUpgradeCost + " Coin";
         }
     }
+    // 작성자: 안진성, 기능: 공격속도 업그레이드 함수
     public void UpgradeSpeedOnClick()
     {
         // 업그레이드 비용이 충분하면
@@ -116,7 +121,7 @@ public class TurretUpgradeUI : MonoBehaviour
             speedUpgradeCostText.text = speedUpgradeCost + " Coin";
         }
     }
-
+    // 작성자: 안진성, 기능: 다음 업그레이드 비용 계산
     private int GetNextUpgradeCost(int currentCost)
     {
         int newCost;
