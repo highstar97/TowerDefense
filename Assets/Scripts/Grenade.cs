@@ -27,8 +27,9 @@ public class Grenade : MonoBehaviour
     public GameObject ikScript; //수류탄 던질때 IKscript on/off
     public LineRenderer targetLineRenderer; //궤적 라인
     int linePointer = 40;// 궤적 포인트 갯수(많으면 더 좋음)
-    private EffectSpawner effectSpawner;
+    private EffectSpawner effectSpawner; //터지는 효과 구현
 
+    // 게임 시작시 라인렌더러 표기 및 효과 컴포넌트 실행 - 하정우
     private void Awake()
     {
         targetLineRenderer = GetComponent<LineRenderer>();
@@ -37,7 +38,7 @@ public class Grenade : MonoBehaviour
         effectSpawner = GameObject.Find("Explosion Effect Spawner").GetComponent<EffectSpawner>();
     }
 
-    //라인렌더러 설정
+    //라인렌더러 UI 설정 - 하정우
     void SetuptargetLineRenderer()
     {
         targetLineRenderer.startWidth = 0.1f;
@@ -76,13 +77,9 @@ public class Grenade : MonoBehaviour
                 velocity += Physics.gravity * (1f / 15f);
                 currentPos += velocity * (1f / 15f);
             }
-
-        //Vector3 velocity = ARAVRInput.RHandDirection * bombThrowPow;
-        //Vector3 startPos = throwPoint.transform.position;
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -110,18 +107,18 @@ public class Grenade : MonoBehaviour
         }
 
     }
-
+    //수류탄 던지는 모션중에는 총이 사라지고, 총의 IK를 제거함 - 하정우
     public void ReadyGrenade()
     {
-        //수류탄 던지는 모션중에는 총이 사라지고, 총의 IK를 제거함
         anim.SetTrigger("ThrowBomb");
         gun.SetActive(false);
         ikScript.GetComponent<IKScripts>().enabled = false;
     }
 
+    // 수류탄 던질때 애니메이션 정리 및 움직임 컨트롤러 - 하정우
     public void pauseAnim()
     {
-        
+       
         grabGrenade = Instantiate(grenade, holdPosition.position, holdPosition.rotation);
         grabGrenade.transform.SetParent(holdPosition);
         grabGrenade.GetComponent<Rigidbody>().isKinematic = true;
@@ -131,6 +128,7 @@ public class Grenade : MonoBehaviour
         anim.speed = 0;
     }
 
+    //라인렌더러 발생코드 - 하정우
     public void ThrowGrenade()
     {
         isPause = false;
@@ -148,13 +146,6 @@ public class Grenade : MonoBehaviour
         if(Physics.Raycast(ray, out hit, 100f, LayerMask.GetMask("Terrain")))
         {
             Vector3 targetPoint = hit.point;
-            //Vector3 velocity;
-            //float time = 1.2f;
-            //if(CalculateThrowVelocity(throwPoint.position, targetPoint, time, out velocity))
-            //{
-            //    velocity.y += 0.15f;
-            //    grenadeRigidbody.velocity = velocity;
-            //}
 
             Vector3 direction = (targetPoint - throwPoint.position).normalized;
             //라인렌더러를 보정함.
@@ -170,17 +161,13 @@ public class Grenade : MonoBehaviour
 
     }
 
+    //수류탄이 터질때 몬스터 타격 / 이펙트 / 파괴효과 - 하정우
     IEnumerator ExplosionTime(Vector3 explosionPos)
     {
         yield return new WaitForSeconds(explosionTime);
         Collider[] Enemys = Physics.OverlapSphere(transform.position, bombRange, enemy);
         for(int i = 0; i<Enemys.Length; i++)
         {
-            //float distance = Vector3.Distance(transform.position, Enemys[i].transform.position);
-            //적 배열에서 하나씩 꺼내서 거리 측정함.
-   
-            //int damageAmount = Mathf.Min((int)(bombPower / distance), bombPower);
-            //거리에 따른 계산식
             ITakeDamageable target = Enemys[i].GetComponent<ITakeDamageable>();
             if(target != null)
             {
@@ -191,31 +178,11 @@ public class Grenade : MonoBehaviour
         Destroy(grabGrenade.gameObject);
     }
 
-    public void Showgun() //총 gameobject on
+    //수류탄 쏘고나서 복귀 - 하정우
+    public void Showgun()
     {
         gun.SetActive(true);
         ikScript.GetComponent<IKScripts>().enabled = true;
     }
-
-    //bool CalculateThrowVelocity(Vector3 start, Vector3 end, float flightTime, out Vector3 velocity)
-    //{
-    //    velocity = Vector3.zero;
-
-    //    Vector3 toTarget = end - start;
-    //    Vector3 toTargetXZ = toTarget;
-    //    toTargetXZ.y = 0;
-
-    //    float y = toTarget.y;
-    //    float xz = toTargetXZ.magnitude;
-
-    //    float vxz = xz / flightTime;
-    //    float vy = y / flightTime + 0.5f * Mathf.Abs(Physics.gravity.y) * flightTime;
-
-    //    Vector3 result = toTargetXZ.normalized * vxz;
-    //    result.y = vy;
-
-    //    velocity = result;
-    //    return true;
-    //}
 
 }
